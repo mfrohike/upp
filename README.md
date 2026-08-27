@@ -1868,7 +1868,7 @@ const EVENTOS = [
   { dia:26, tipo:"partido", hora:"19:30", rival:"CD Becerril", campo:"Campo Sergio Asenjo", local:true,
     resultado:"2–4", goles:"Sergio y Marco" },
   { dia:27, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:29, tipo:"partido", hora:"Por definir", rival:"CD Villada", campo:"C. Municipal Villada", local:false },
+  { dia:29, tipo:"partido", hora:"19:30", rival:"CD Villada", campo:"C. Municipal Villada", local:false },
   { dia:31, tipo:"entreno", hora:"20:30–22:00" },
   { dia:5, mes:9, tipo:"partido", hora:"18:00", rival:"Venta de Baños y CD Carrión",
     rivales:["Venta de Baños CF","CD Carrión"], campo:"Campo Sergio Asenjo 2", local:true,
