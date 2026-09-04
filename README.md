@@ -1715,30 +1715,27 @@ const LIGA = [
   { j:34, fecha:"2027-05-30", rival:"CDFC Paredes", local:false, gf:null, gc:null },
 ];
 const CAMPO_LOCAL = 'Campo Sergio Asenjo';
-const HORA_DEFECTO = '16:30';
+// La federación publica los horarios ~1 semana antes: hasta entonces, "Por definir".
+const HORA_DEFECTO = 'Por definir';
 // ===== PLANNING DEL MES (editable) =====
-const MES = { anio:2026, mes:8, nombre:"Agosto 2026", subtitulo:"Pretemporada 26/27" };
+const MES = { anio:2026, mes:9, nombre:"Septiembre 2026", subtitulo:"Arranca la Liga 26/27" };
 // tipo: "entreno" | "partido"
 const EVENTOS = [
-  { dia:11, tipo:"entreno", hora:"19:30–21:00" },
-  { dia:13, tipo:"entreno", hora:"19:30–21:00" },
-  { dia:18, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:19, tipo:"partido", hora:"19:30", rival:"Betis B (Valladolid)", campo:"Campo Sergio Asenjo", local:true,
-   resultado:"2–1", goles:"Marco y Aitor" },
-  { dia:20, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:23, tipo:"partido", hora:"19:30", rival:"Cristo Atlético", nota:"Juvenil Regional", campo:"Campo El Cristo", local:false,
-   resultado:"0–3", goles:"Aitor (2) y Dela" },
-  { dia:25, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:26, tipo:"partido", hora:"19:30", rival:"CD Becerril", campo:"Campo Sergio Asenjo", local:true,
-   resultado:"2–4", goles:"Sergio y Marco" },
-  { dia:27, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:29, tipo:"partido", hora:"19:30", rival:"CD Villada", campo:"C. Municipal Villada", local:false,
-   resultado:"2–2", goles:"Erik (p.) y Ángel" },
-  { dia:31, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:5, mes:9, tipo:"partido", hora:"18:00", rival:"Venta de Baños y CD Carrión",
-   rivales:["Venta de Baños CF","CD Carrión"], campo:"Campo Sergio Asenjo 2", local:true,
-   titulo:"2º Memorial Ana García Gil", nota:"Triangular", destacado:true },
-  { dia:9, mes:9, tipo:"partido", hora:"Por definir", rival:"Por definir", campo:"Por definir", local:true }
+  { dia:1,  tipo:"entreno", hora:"20:30–22:00" },
+  { dia:3,  tipo:"entreno", hora:"20:30–22:00" },
+  { dia:5,  tipo:"partido", hora:"18:00", rival:"Venta de Baños y CD Carrión",
+   rivales:["Venta de Baños CF","CD Carrión"], campo:"Campo Sergio Asenjo 2",
+   local:true, titulo:"2º Memorial Ana García Gil", nota:"Triangular", destacado:true },
+  { dia:8,  tipo:"entreno", hora:"20:30–22:00" },
+  { dia:10, tipo:"entreno", hora:"20:30–22:00" },
+  { dia:13, tipo:"partido", hora:"Por definir", rival:"CD Dueñas", campo:"Dueñas", local:false, nota:"Liga · Jornada 1" },
+  { dia:15, tipo:"entreno", hora:"20:30–22:00" },
+  { dia:17, tipo:"entreno", hora:"20:30–22:00" },
+  { dia:20, tipo:"partido", hora:"Por definir", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2" },
+  { dia:22, tipo:"entreno", hora:"20:30–22:00" },
+  { dia:24, tipo:"entreno", hora:"20:30–22:00" },
+  { dia:27, tipo:"partido", hora:"Por definir", rival:"CD Baltanás", campo:"Baltanás", local:false, nota:"Liga · Jornada 3" },
+  { dia:29, tipo:"entreno", hora:"20:30–22:00" }
 ];
 // El Memorial Ana García Gil es el torneo propio del club: homenaje a una
 // compañera fundadora y colaboradora fallecida de cáncer muy joven.
@@ -1803,7 +1800,8 @@ let P = proximoPartido();
 // Si ya no quedan amistosos, el próximo partido sale del calendario liguero
 const PL = (typeof LIGA !== 'undefined') ? LIGA.find(p => p.gf===null && new Date(p.fecha+'T12:00:00') >= new Date(new Date().toDateString())) : null;
 if(PL){
-  const fechaLiga = new Date(PL.fecha + 'T' + (HORA_DEFECTO||'16:30') + ':00');
+  const HORA_RELOJ = /^\d{1,2}:\d{2}$/.test(HORA_DEFECTO) ? HORA_DEFECTO : '16:30';
+  const fechaLiga = new Date(PL.fecha + 'T' + HORA_RELOJ + ':00');
   if(!P || fechaLiga < P.fecha){
    P = { dia: fechaLiga.getDate(), tipo:'partido', hora: HORA_DEFECTO, rival: PL.rival,
    campo: PL.local ? CAMPO_LOCAL : 'Campo del rival', local: PL.local,
@@ -2586,6 +2584,7 @@ pintarHistorico();
 // Para añadir un vídeo: pega el ID de YouTube (lo que va después de "watch?v=" o de "youtu.be/").
 // Ej: https://www.youtube.com/watch?v=AbCdEfG1234  ->  id:"AbCdEfG1234"
 const VIDEOS = [
+  { id:"AdD6TVLJ8Qc", titulo:"Nuestra historia en imágenes", fecha:"Unión Popular", desc:"Un repaso al camino recorrido por el club." },
   { id:"Yu4mNyFPP9Q", titulo:"Asamblea del CD Palencia", fecha:"Herencia morada", desc:"Los socios decidiendo en asamblea: de ahí venimos." },
   { id:"qIoAGfbGCCw", titulo:"Asamblea del CF Palencia (diciembre)", fecha:"Herencia morada", desc:"El club se debatía en asamblea, como hacemos hoy." },
   { id:"oENwEFgHTJ4", titulo:"Asamblea de los Infiernos Morados", fecha:"Herencia morada", desc:"La grada organizada tomando la palabra." },
