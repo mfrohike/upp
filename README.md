@@ -583,6 +583,25 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .talla.hay{width:auto;padding:4px 9px}
 .out-precio .unico{font-family:var(--display);font-size:1.5rem;color:var(--trigo);line-height:1}
 .out-precio .unico small{display:block;font-family:var(--cuerpo);font-size:.62rem;color:var(--texto-2);letter-spacing:.06em}
+.panel-jornada{margin-bottom:22px}
+.jor-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.jor-head h3{margin:0}
+.jor-nav{display:flex;align-items:center;gap:10px}
+.jor-nav button{width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);background:rgba(255,255,255,.04);color:var(--texto);font-size:1.2rem;cursor:pointer}
+.jor-nav button:disabled{opacity:.3;cursor:default}
+.jor-nav button:not(:disabled):hover{border-color:var(--trigo);color:var(--trigo)}
+#jor-titulo{font-family:var(--condensada);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;min-width:96px;text-align:center}
+.jor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.jp{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--borde);border-radius:12px;background:rgba(255,255,255,.03);font-size:.86rem}
+.jp.upp{border-color:rgba(232,201,122,.5);background:rgba(232,201,122,.06)}
+.jp-eq{display:flex;align-items:center;gap:8px;min-width:0}
+.jp-eq span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jp-eq:last-child{justify-content:flex-end;text-align:right}
+.jp-eq:last-child .crest{order:2}
+.jp-eq.propio span{color:var(--trigo);font-weight:600}
+.jp-res{font-family:var(--display);font-size:1.1rem;color:#fff;background:rgba(0,0,0,.35);padding:2px 10px;border-radius:8px;font-variant-numeric:tabular-nums}
+.jor-descansa{margin-top:10px;font-size:.78rem;color:var(--texto-2);font-style:italic}
+.jor-vacio{color:var(--texto-2);font-size:.85rem}
 .clasif-jor{font-family:var(--condensada);font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--trigo);margin-left:10px}
 .jug .oficial{font-size:.66rem;color:var(--texto-2);margin-top:2px;letter-spacing:.02em}
 .jug .alias{font-size:.72rem;color:var(--trigo);letter-spacing:.04em;margin-top:2px}
@@ -1303,6 +1322,18 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
 <!-- ===== CLASIFICACIÓN ===== -->
 <section class="section" style="padding-top:0">
   <div class="wrap">
+   <div class="panel panel-jornada">
+   <div class="jor-head">
+   <h3>Resultados de la jornada</h3>
+   <div class="jor-nav">
+   <button id="jor-prev" aria-label="Jornada anterior">‹</button>
+   <span id="jor-titulo">Jornada 1</span>
+   <button id="jor-next" aria-label="Jornada siguiente">›</button>
+   </div>
+   </div>
+   <div class="jor-grid" id="jor-grid"></div>
+   <div class="jor-descansa" id="jor-descansa"></div>
+   </div>
    <div class="panel panel-clasif">
    <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 1</span></h3><div class="clasif-scroll">
    <table class="clasif">
@@ -1667,6 +1698,42 @@ const CLASIFICACION = [
   { equipo:"CDFC Paredes",         pj:1, pg:0, pe:0, pp:1, gf:0, gc:4, pts:0 },
   { equipo:"CD Baltanás",          pj:1, pg:0, pe:0, pp:1, gf:0, gc:7, pts:0 }
 ].map((e,i)=>({ pos:i+1, pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ...e }));
+// ===== RESULTADOS DE TODAS LAS JORNADAS (fuente: actas RFCyLF) =====
+// Formato: [local, goles local, goles visitante, visitante]. Se añade cada jornada al recibir las actas.
+const RESULTADOS = {
+  1: { partidos:[
+   ["CD Dueñas",2,5,"UP Palencia"],
+   ["CDFC Paredes",0,4,"CD Saldaña"],
+   ["CD Villalobón",3,1,"UP Barruelo"],
+   ["CD Guardo",2,3,"CD Grijota"],
+   ["CD Aguilar",1,2,"AD Villada"],
+   ["CD Jóvenes Promesas",0,3,"Venta de Baños CF"],
+   ["CD Monzón",3,1,"CD Cervera"],
+   ["CD Carrión",7,0,"CD Baltanás"]
+  ], descansa:"CD Velilla" }
+};
+(function pintarJornadas(){
+  const grid = document.getElementById('jor-grid'); if(!grid) return;
+  const jornadas = Object.keys(RESULTADOS).map(Number).sort((a,b)=>a-b);
+  if(!jornadas.length){ grid.innerHTML = '<p class="jor-vacio">Aún no hay jornadas disputadas.</p>'; return; }
+  let idx = jornadas.length-1;
+  const eq = n => n==='UP Palencia'
+   ? `<span class="jp-eq propio"><img class="crest xs crest-img" src="" data-escudo alt="UP Palencia"><span>UP Palencia</span></span>`
+   : `<span class="jp-eq">${escudoHTML(n,'crest xs')}<span>${n}</span></span>`;
+  function pintar(){
+   const j = jornadas[idx]; const J = RESULTADOS[j];
+   document.getElementById('jor-titulo').textContent = 'Jornada '+j;
+   grid.innerHTML = J.partidos.map(([l,gl,gv,v])=>`<div class="jp ${(l==='UP Palencia'||v==='UP Palencia')?'upp':''}">
+   ${eq(l)}<span class="jp-res">${gl}–${gv}</span>${eq(v)}</div>`).join('');
+   document.getElementById('jor-descansa').textContent = J.descansa ? `Descansa: ${J.descansa}` : '';
+   try{ grid.querySelectorAll('img[data-escudo]').forEach(i=>{ i.src = ESCUDO_B64; }); }catch(e){ /* en la carga inicial lo rellena el pase global */ }
+   document.getElementById('jor-prev').disabled = idx===0;
+   document.getElementById('jor-next').disabled = idx===jornadas.length-1;
+  }
+  document.getElementById('jor-prev').addEventListener('click',()=>{ if(idx>0){ idx--; pintar(); } });
+  document.getElementById('jor-next').addEventListener('click',()=>{ if(idx<jornadas.length-1){ idx++; pintar(); } });
+  pintar();
+})();
 document.getElementById('clasif-tbody').innerHTML = CLASIFICACION.map(f=>{
   const dg = f.gf - f.gc;
   const sdg = dg > 0 ? '+'+dg : dg;
@@ -1690,7 +1757,7 @@ document.querySelectorAll('img[data-escudo]').forEach(i=>i.src=ESCUDO_B64);
 // Tras cada jornada, añade el resultado: {j:1, ..., gf:2, gc:1}
 const LIGA = [
   { j:1, fecha:"2026-09-12", hora:"17:30", campo:"Municipal Eras de las Candelas", rival:"CD Dueñas", local:false, gf:5, gc:2 },
-  { j:2, fecha:"2026-09-20", rival:"CD Carrión", local:true, gf:null, gc:null },
+  { j:2, fecha:"2026-09-20", hora:"18:00", rival:"CD Carrión", local:true, gf:null, gc:null },
   { j:3, fecha:"2026-09-27", rival:"CD Baltanás", local:false, gf:null, gc:null },
   { j:4, fecha:"2026-10-04", rival:"CD Monzón", local:true, gf:null, gc:null },
   { j:5, fecha:"2026-10-11", rival:"CD Saldaña", local:true, gf:null, gc:null },
@@ -1743,7 +1810,7 @@ const EVENTOS = [
    resultado:"2–5", goles:"Erik, Mario, Dela, Pereira e Iker" },
   { dia:15, tipo:"entreno", hora:"20:30–22:00" },
   { dia:17, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:20, tipo:"partido", hora:"Por definir", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2" },
+  { dia:20, tipo:"partido", hora:"18:00", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2" },
   { dia:22, tipo:"entreno", hora:"20:30–22:00" },
   { dia:24, tipo:"entreno", hora:"20:30–22:00" },
   { dia:27, tipo:"partido", hora:"Por definir", rival:"CD Baltanás", campo:"Baltanás", local:false, nota:"Liga · Jornada 3" },
