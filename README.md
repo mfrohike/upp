@@ -562,6 +562,12 @@ table.clasif-hist .crest.xs{width:20px;height:20px}
 .hitos li::before{content:"▸";position:absolute;left:0;color:var(--trigo)}
 .resultado-goles{text-align:center;font-size:.82rem;color:var(--texto-2);margin:-6px 0 14px;line-height:1.5}
 .resultado-goles b{color:var(--trigo)}
+.galeria-link{display:flex;align-items:center;justify-content:center;gap:7px;margin:-4px 0 6px;font-size:.78rem;color:var(--trigo);text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font-family:var(--condensada);font-weight:600}
+.galeria-link:hover{text-decoration:underline}
+.mp-arbitro{display:block;font-size:.72rem;color:var(--texto-2);margin-top:4px;letter-spacing:.02em}
+.ag-arb{font-size:.72rem;color:var(--texto-2)}
+.ag-galeria{display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:.72rem;color:var(--trigo);text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font-family:var(--condensada);font-weight:600}
+.ag-galeria:hover{text-decoration:underline}
 .colapsable summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;
   font-family:var(--condensada);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.9rem}
 .colapsable summary::-webkit-details-marker{display:none}
@@ -1251,6 +1257,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    </div>
    </div>
    <div class="resultado-goles">⚽ Erik 8', Mario 19', Dela 46', Pereira 65' e Iker 80'</div>
+   <a class="galeria-link" href="https://www.instagram.com/p/DdRwudpDdRHFKW0DS1kfgZgdN0pKhopkyHSYEY0/" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos del partido ▸</a>
    </div>
    <details class="colapsable">
    <summary><h3>⚽ Partidos</h3></summary>
@@ -1757,7 +1764,7 @@ document.querySelectorAll('img[data-escudo]').forEach(i=>i.src=ESCUDO_B64);
 // Tras cada jornada, añade el resultado: {j:1, ..., gf:2, gc:1}
 const LIGA = [
   { j:1, fecha:"2026-09-12", hora:"17:30", campo:"Municipal Eras de las Candelas", rival:"CD Dueñas", local:false, gf:5, gc:2 },
-  { j:2, fecha:"2026-09-20", hora:"18:00", rival:"CD Carrión", local:true, gf:null, gc:null },
+  { j:2, fecha:"2026-09-20", hora:"18:00", arbitro:"Luis Miguel Salceda González", rival:"CD Carrión", local:true, gf:null, gc:null },
   { j:3, fecha:"2026-09-27", rival:"CD Baltanás", local:false, gf:null, gc:null },
   { j:4, fecha:"2026-10-04", rival:"CD Monzón", local:true, gf:null, gc:null },
   { j:5, fecha:"2026-10-11", rival:"CD Saldaña", local:true, gf:null, gc:null },
@@ -1803,14 +1810,16 @@ const EVENTOS = [
   { dia:5,  tipo:"partido", hora:"18:00", rival:"Venta de Baños y CD Carrión",
    rivales:["Venta de Baños CF","CD Carrión"], campo:"Campo Sergio Asenjo 2",
    local:true, titulo:"2º Memorial Ana García Gil", destacado:true,
-   resultado:"2–0 y 1–0", goles:"Dela, Erik y Pereira", nota:"Triangular · UPP campeón" },
+   resultado:"2–0 y 1–0", goles:"Dela, Erik y Pereira", nota:"Triangular · UPP campeón",
+   galeria:"https://www.instagram.com/p/DZDa26ODRbDQ3cKu9IHunrVUf_cg7MtUXFkSNQ0/" },
   { dia:8,  tipo:"entreno", hora:"20:30–22:00" },
   { dia:10, tipo:"entreno", hora:"20:30–22:00" },
   { dia:12, tipo:"partido", hora:"17:30", rival:"CD Dueñas", campo:"Municipal Eras de las Candelas", local:false, nota:"Liga · Jornada 1",
-   resultado:"2–5", goles:"Erik, Mario, Dela, Pereira e Iker" },
+   resultado:"2–5", goles:"Erik, Mario, Dela, Pereira e Iker",
+   galeria:"https://www.instagram.com/p/DdRwudpDdRHFKW0DS1kfgZgdN0pKhopkyHSYEY0/" },
   { dia:15, tipo:"entreno", hora:"20:30–22:00" },
   { dia:17, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:20, tipo:"partido", hora:"18:00", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2" },
+  { dia:20, tipo:"partido", hora:"18:00", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2", arbitro:"Luis Miguel Salceda González" },
   { dia:22, tipo:"entreno", hora:"20:30–22:00" },
   { dia:24, tipo:"entreno", hora:"20:30–22:00" },
   { dia:27, tipo:"partido", hora:"Por definir", rival:"CD Baltanás", campo:"Baltanás", local:false, nota:"Liga · Jornada 3" },
@@ -1861,7 +1870,7 @@ function pintarCalendario(){
    ${e.titulo?`<div class="mem-titulo">★ ${e.titulo}</div>`:''}
    <div class="d">${fechaTxt}</div>
    <div class="r">${crestas} ${e.local?'vs':'@'} ${e.rival}${e.resultado?` <b class="ag-res">${e.resultado}</b>`:''}</div>
-   <div class="c">${e.resultado?`Final${e.goles?' · ⚽ '+e.goles:''}`:`${e.campo} · ${e.hora}`}${e.nota?' · '+e.nota:''}</div>
+   <div class="c">${e.resultado?`Final${e.goles?' · ⚽ '+e.goles:''}`:`${e.campo} · ${e.hora}`}${e.nota?' · '+e.nota:''}${(!e.resultado&&e.arbitro)?`<br><span class="ag-arb">Árbitro: ${e.arbitro}</span>`:''}${e.galeria?`<br><a class="ag-galeria" href="${e.galeria}" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos ▸</a>`:''}</div>
    </li>`;
   }).join('');
 }
@@ -1885,7 +1894,7 @@ if(PL){
   if(!P || fechaLiga < P.fecha){
    P = { dia: fechaLiga.getDate(), tipo:'partido', hora: horaPL, rival: PL.rival,
    campo: PL.local ? CAMPO_LOCAL : (PL.campo || 'Campo del rival'), local: PL.local,
-   fecha: fechaLiga, jornada: PL.j };
+   fecha: fechaLiga, jornada: PL.j, arbitro: PL.arbitro };
   }
 }
 if(P){
@@ -1896,7 +1905,7 @@ if(P){
    : `${MES.subtitulo} · ${P.local?'En casa':'Fuera'}`;
   const MES_ABR = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   document.getElementById('mp-fecha').textContent = `${dow} ${P.dia} ${MES_ABR[P.fecha.getMonth()]} · ${P.hora}`;
-  document.getElementById('mp-campo').textContent = P.campo;
+  document.getElementById('mp-campo').innerHTML = P.campo + (P.arbitro ? `<span class="mp-arbitro">Árbitro: ${P.arbitro}</span>` : '');
   document.getElementById('mp-rival').textContent = P.rival;
   const cont = document.getElementById('mp-rival-escudo');
   cont.outerHTML = (P.rivales||[P.rival]).map(r=>escudoHTML(r,'crest')).join('');
@@ -2124,7 +2133,7 @@ function normalizar(s){
   return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
 }
 // Nombres históricos que NO deben heredar la foto de un jugador actual homónimo
-const FOTOS_EXCLUIR = ["Sergio Mata", "Víctor Estébanez"];
+const FOTOS_EXCLUIR = ["Sergio Mata", "Víctor Estébanez", "Sergio Palacios"];
 function fotoDe(nombre){
   if(FOTOS_JUGADORES[nombre]) return FOTOS_JUGADORES[nombre];
   if(FOTOS_EXCLUIR.includes(nombre)) return null;
