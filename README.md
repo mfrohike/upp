@@ -1244,20 +1244,19 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <aside class="agenda">
    <div class="panel panel-ultimo">
    <h3>Último resultado</h3>
-   <div class="resultado-meta">Liga 26/27 · Jornada 1 · Eras de las Candelas</div>
+   <div class="resultado-meta">Liga 26/27 · Jornada 2 · Sergio Asenjo</div>
    <div class="resultado">
-   <div>
-   <span id="res-rival-escudo"></span>
-   <div class="n">AD Castilla Dueñas</div>
-   </div>
-   <div class="marcador">2–5</div>
    <div>
    <img class="crest" src="" data-escudo alt="Escudo CD Unión Popular de Palencia">
    <div class="n">UP Palencia</div>
    </div>
+   <div class="marcador">2–2</div>
+   <div>
+   <span id="res-rival-escudo"></span>
+   <div class="n">CD Carrión</div>
    </div>
-   <div class="resultado-goles">⚽ Erik 8', Mario 19', Dela 46', Pereira 65' e Iker 80'</div>
-   <a class="galeria-link" href="https://www.instagram.com/p/DdRwudpDdRHFKW0DS1kfgZgdN0pKhopkyHSYEY0/" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos del partido ▸</a>
+   </div>
+   <div class="resultado-goles">⚽ Pereira 41' (p.) y Juan Pablo 65'</div>
    </div>
    <details class="colapsable">
    <summary><h3>⚽ Partidos</h3></summary>
@@ -1342,7 +1341,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <div class="jor-descansa" id="jor-descansa"></div>
    </div>
    <div class="panel panel-clasif">
-   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 1</span></h3><div class="clasif-scroll">
+   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 2</span></h3><div class="clasif-scroll">
    <table class="clasif">
    <thead><tr>
    <th>Pos</th><th>Equipo</th>
@@ -1687,23 +1686,23 @@ function escudoHTML(nombre, clase='crest'){
 // ===== CLASIFICACIÓN 1ª PROVINCIAL 26/27 (editable tras cada jornada) =====
 // Actualiza pj/pg/pe/pp/gf/gc/pts y reordena tras cada jornada; la web pinta sola.
 const CLASIFICACION = [
-  { equipo:"CD Carrión",           pj:1, pg:1, pe:0, pp:0, gf:7, gc:0, pts:3 },
-  { equipo:"CD Saldaña",           pj:1, pg:1, pe:0, pp:0, gf:4, gc:0, pts:3 },
-  { equipo:"UP Palencia", propio:true, pj:1, pg:1, pe:0, pp:0, gf:5, gc:2, pts:3 },
-  { equipo:"Venta de Baños CF",    pj:1, pg:1, pe:0, pp:0, gf:3, gc:0, pts:3 },
-  { equipo:"CD Villalobón",        pj:1, pg:1, pe:0, pp:0, gf:3, gc:1, pts:3 },
-  { equipo:"CD Monzón",            pj:1, pg:1, pe:0, pp:0, gf:3, gc:1, pts:3 },
+  { equipo:"CD Villalobón",        pj:2, pg:2, pe:0, pp:0, gf:5, gc:1, pts:6 },
+  { equipo:"Venta de Baños CF",    pj:2, pg:2, pe:0, pp:0, gf:4, gc:0, pts:6 },
+  { equipo:"CD Carrión",           pj:2, pg:1, pe:1, pp:0, gf:9, gc:2, pts:4 },
+  { equipo:"CD Saldaña",           pj:2, pg:1, pe:1, pp:0, gf:4, gc:0, pts:4 },
+  { equipo:"UP Palencia", propio:true, pj:2, pg:1, pe:1, pp:0, gf:7, gc:4, pts:4 },
+  { equipo:"CD Monzón",            pj:2, pg:1, pe:1, pp:0, gf:6, gc:4, pts:4 },
+  { equipo:"AD Villada",           pj:2, pg:1, pe:1, pp:0, gf:3, gc:2, pts:4 },
+  { equipo:"CD Guardo",            pj:2, pg:1, pe:0, pp:1, gf:6, gc:4, pts:3 },
+  { equipo:"UP Barruelo",          pj:2, pg:1, pe:0, pp:1, gf:5, gc:4, pts:3 },
   { equipo:"CD Grijota",           pj:1, pg:1, pe:0, pp:0, gf:3, gc:2, pts:3 },
-  { equipo:"AD Villada",           pj:1, pg:1, pe:0, pp:0, gf:2, gc:1, pts:3 },
-  { equipo:"CD Velilla",           pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 },
-  { equipo:"CD Aguilar",           pj:1, pg:0, pe:0, pp:1, gf:1, gc:2, pts:0 },
-  { equipo:"CD Guardo",            pj:1, pg:0, pe:0, pp:1, gf:2, gc:3, pts:0 },
-  { equipo:"UP Barruelo",          pj:1, pg:0, pe:0, pp:1, gf:1, gc:3, pts:0 },
-  { equipo:"CD Cervera",           pj:1, pg:0, pe:0, pp:1, gf:1, gc:3, pts:0 },
-  { equipo:"CD Dueñas",            pj:1, pg:0, pe:0, pp:1, gf:2, gc:5, pts:0 },
-  { equipo:"CD Jóvenes Promesas",  pj:1, pg:0, pe:0, pp:1, gf:0, gc:3, pts:0 },
-  { equipo:"CDFC Paredes",         pj:1, pg:0, pe:0, pp:1, gf:0, gc:4, pts:0 },
-  { equipo:"CD Baltanás",          pj:1, pg:0, pe:0, pp:1, gf:0, gc:7, pts:0 }
+  { equipo:"CD Velilla",           pj:1, pg:0, pe:1, pp:0, gf:1, gc:1, pts:1 },
+  { equipo:"CD Dueñas",            pj:2, pg:0, pe:1, pp:1, gf:2, gc:5, pts:1 },
+  { equipo:"CD Baltanás",          pj:2, pg:0, pe:1, pp:1, gf:3, gc:10, pts:1 },
+  { equipo:"CD Aguilar",           pj:2, pg:0, pe:0, pp:2, gf:1, gc:3, pts:0 },
+  { equipo:"CD Cervera",           pj:2, pg:0, pe:0, pp:2, gf:1, gc:5, pts:0 },
+  { equipo:"CD Jóvenes Promesas",  pj:2, pg:0, pe:0, pp:2, gf:1, gc:7, pts:0 },
+  { equipo:"CDFC Paredes",         pj:2, pg:0, pe:0, pp:2, gf:1, gc:8, pts:0 }
 ].map((e,i)=>({ pos:i+1, pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ...e }));
 // ===== RESULTADOS DE TODAS LAS JORNADAS (fuente: actas RFCyLF) =====
 // Formato: [local, goles local, goles visitante, visitante]. Se añade cada jornada al recibir las actas.
@@ -1717,7 +1716,17 @@ const RESULTADOS = {
    ["CD Jóvenes Promesas",0,3,"Venta de Baños CF"],
    ["CD Monzón",3,1,"CD Cervera"],
    ["CD Carrión",7,0,"CD Baltanás"]
-  ], descansa:"CD Velilla" }
+  ], descansa:"CD Velilla" },
+  2: { partidos:[
+   ["UP Palencia",2,2,"CD Carrión"],
+   ["CD Saldaña",0,0,"CD Dueñas"],
+   ["Venta de Baños CF",1,0,"CD Aguilar"],
+   ["UP Barruelo",4,1,"CD Jóvenes Promesas"],
+   ["CD Cervera",0,2,"CD Villalobón"],
+   ["CD Baltanás",3,3,"CD Monzón"],
+   ["AD Villada",1,1,"CD Velilla"],
+   ["CD Guardo",4,1,"CDFC Paredes"]
+  ], descansa:"CD Grijota" }
 };
 (function pintarJornadas(){
   const grid = document.getElementById('jor-grid'); if(!grid) return;
@@ -1764,9 +1773,9 @@ document.querySelectorAll('img[data-escudo]').forEach(i=>i.src=ESCUDO_B64);
 // Tras cada jornada, añade el resultado: {j:1, ..., gf:2, gc:1}
 const LIGA = [
   { j:1, fecha:"2026-09-12", hora:"17:30", campo:"Municipal Eras de las Candelas", rival:"CD Dueñas", local:false, gf:5, gc:2 },
-  { j:2, fecha:"2026-09-20", hora:"18:00", arbitro:"Luis Miguel Salceda González", rival:"CD Carrión", local:true, gf:null, gc:null },
-  { j:3, fecha:"2026-09-27", rival:"CD Baltanás", local:false, gf:null, gc:null },
-  { j:4, fecha:"2026-10-04", rival:"CD Monzón", local:true, gf:null, gc:null },
+  { j:2, fecha:"2026-09-20", hora:"18:00", arbitro:"Luis Miguel Salceda González", rival:"CD Carrión", local:true, gf:2, gc:2 },
+  { j:3, fecha:"2026-09-26", hora:"17:30", campo:"C.M. Ceferino Atienza", rival:"CD Baltanás", local:false, gf:null, gc:null },
+  { j:4, fecha:"2026-10-04", hora:"17:30", rival:"CD Monzón", local:true, gf:null, gc:null },
   { j:5, fecha:"2026-10-11", rival:"CD Saldaña", local:true, gf:null, gc:null },
   { j:6, fecha:"2026-10-18", rival:"CD Guardo", local:false, gf:null, gc:null },
   { j:7, fecha:"2026-10-25", rival:"Pan y Guindas", local:true, gf:null, gc:null, descansa:true },
@@ -1819,10 +1828,11 @@ const EVENTOS = [
    galeria:"https://www.instagram.com/p/DdRwudpDdRHFKW0DS1kfgZgdN0pKhopkyHSYEY0/" },
   { dia:15, tipo:"entreno", hora:"20:30–22:00" },
   { dia:17, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:20, tipo:"partido", hora:"18:00", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2", arbitro:"Luis Miguel Salceda González" },
+  { dia:20, tipo:"partido", hora:"18:00", rival:"CD Carrión", campo:"Campo Sergio Asenjo", local:true, nota:"Liga · Jornada 2", arbitro:"Luis Miguel Salceda González",
+   resultado:"2–2", goles:"Pereira (p.) y Juan Pablo" },
   { dia:22, tipo:"entreno", hora:"20:30–22:00" },
   { dia:24, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:27, tipo:"partido", hora:"Por definir", rival:"CD Baltanás", campo:"Baltanás", local:false, nota:"Liga · Jornada 3" },
+  { dia:26, tipo:"partido", hora:"17:30", rival:"CD Baltanás", campo:"C.M. Ceferino Atienza", local:false, nota:"Liga · Jornada 3" },
   { dia:29, tipo:"entreno", hora:"20:30–22:00" }
 ];
 // El Memorial Ana García Gil es el torneo propio del club: homenaje a una
@@ -2760,7 +2770,7 @@ const vMarco = document.querySelector('.vid-marco');
 document.getElementById('vprev').addEventListener('click',()=>vMarco.scrollBy({left:-596,behavior:'smooth'}));
 document.getElementById('vnext').addEventListener('click',()=>vMarco.scrollBy({left:596,behavior:'smooth'}));
 // Escudo del rival en el último resultado
-document.getElementById('res-rival-escudo').innerHTML = escudoHTML('CD Dueñas','crest');
+document.getElementById('res-rival-escudo').innerHTML = escudoHTML('CD Carrión','crest');
 // ===== TIENDA =====
 // Enlace al perfil de PayPal del club (paypal.me/...). Pégalo aquí y aparecerá
 // el botón de pago junto a cada camiseta. Si se deja vacío, solo se muestra "Reservar".
