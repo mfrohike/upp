@@ -1504,14 +1504,14 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    </div>
    <div class="at-cd">
    <div class="at-cd-lab">Cierre del próximo pedido</div>
-   <div class="at-cd-fecha">12 de octubre de 2026</div>
+   <div class="at-cd-fecha">4 de octubre de 2026</div>
    <div class="countdown pedido-cd" id="cd-pedido" aria-label="Cuenta atrás para reservar camiseta">
    <div class="cd-box"><div class="num" id="pd-d">--</div><div class="lab">Días</div></div>
    <div class="cd-box"><div class="num" id="pd-h">--</div><div class="lab">Horas</div></div>
    <div class="cd-box"><div class="num" id="pd-m">--</div><div class="lab">Min</div></div>
    <div class="cd-box"><div class="num" id="pd-s">--</div><div class="lab">Seg</div></div>
    </div>
-   <a class="btn btn-primario" href="mailto:oficina@unionpopularpalencia.com?subject=Reserva%20camiseta%20UPP%20%C2%B7%20pedido%2012%20octubre&body=Hola,%20quiero%20reservar:%0A%0A- Modelo:%0A- Talla:%0A- Unidades:%0A- Nombre:%0A- Tel%C3%A9fono:%0A%0AGracias.">Reservar mi camiseta</a>
+   <a class="btn btn-primario" href="mailto:oficina@unionpopularpalencia.com?subject=Reserva%20camiseta%20UPP%20%C2%B7%20pedido%204%20octubre&body=Hola,%20quiero%20reservar:%0A%0A- Modelo:%0A- Talla:%0A- Unidades:%0A- Nombre:%0A- Tel%C3%A9fono:%0A%0AGracias.">Reservar mi camiseta</a>
    </div>
    </div>
    <div class="tienda-grid" id="tienda-grid"></div>
@@ -1536,7 +1536,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <div class="paso-p">
    <div class="np">1</div>
    <h4>Escríbenos</h4>
-   <p>Envía un correo a <a href="mailto:oficina@unionpopularpalencia.com?subject=Pedido%20tienda%20UPP">oficina@unionpopularpalencia.com</a> indicando modelo, talla y unidades, <b>antes del 12 de octubre</b> si es camiseta nueva.</p>
+   <p>Envía un correo a <a href="mailto:oficina@unionpopularpalencia.com?subject=Pedido%20tienda%20UPP">oficina@unionpopularpalencia.com</a> indicando modelo, talla y unidades, <b>antes del 4 de octubre</b> si es camiseta nueva.</p>
    </div>
    <div class="paso-p">
    <div class="np">2</div>
@@ -1814,7 +1814,7 @@ const LIGA = [
   { j:1, fecha:"2026-09-12", hora:"17:30", campo:"Municipal Eras de las Candelas", rival:"CD Dueñas", local:false, gf:5, gc:2 },
   { j:2, fecha:"2026-09-20", hora:"18:00", arbitro:"Luis Miguel Salceda González", rival:"CD Carrión", local:true, gf:2, gc:2 },
   { j:3, fecha:"2026-09-26", hora:"17:30", campo:"C.M. Ceferino Atienza", arbitro:"José Luis Ortega de Juana", rival:"CD Baltanás", local:false, gf:2, gc:1 },
-  { j:4, fecha:"2026-10-04", hora:"17:30", rival:"CD Monzón", local:true, gf:null, gc:null },
+  { j:4, fecha:"2026-10-04", hora:"17:30", arbitro:"Jorge García Rojo", rival:"CD Monzón", local:true, gf:null, gc:null },
   { j:5, fecha:"2026-10-11", rival:"CD Saldaña", local:true, gf:null, gc:null },
   { j:6, fecha:"2026-10-18", rival:"CD Guardo", local:false, gf:null, gc:null },
   { j:7, fecha:"2026-10-25", rival:"Pan y Guindas", local:true, gf:null, gc:null, descansa:true },
@@ -1876,7 +1876,7 @@ const EVENTOS = [
    resultado:"1–2", goles:"Ángel y Ricky",
    galeria:"https://www.instagram.com/p/Dd4azBujL3r/" },
   { dia:29, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:4, mes:10, tipo:"partido", hora:"17:30", rival:"CD Monzón", campo:"Campo Sergio Asenjo 2", local:true, nota:"Liga · Jornada 4", jornada:4 }
+  { dia:4, mes:10, tipo:"partido", hora:"17:30", rival:"CD Monzón", campo:"Campo Sergio Asenjo 2", local:true, nota:"Liga · Jornada 4", jornada:4, arbitro:"Jorge García Rojo" }
 ];
 // El Memorial Ana García Gil es el torneo propio del club: homenaje a una
 // compañera fundadora y colaboradora fallecida de cáncer muy joven.
@@ -2941,7 +2941,7 @@ document.getElementById('oprev').addEventListener('click',()=>oMarco.scrollBy({l
 document.getElementById('onext').addEventListener('click',()=>oMarco.scrollBy({left:516,behavior:'smooth'}));
 // ===== CUENTA ATRÁS DEL PEDIDO A FÁBRICA =====
 // Cambia esta fecha cuando se abra la siguiente campaña de pedidos.
-const CIERRE_PEDIDO = new Date('2026-10-12T23:59:59');
+const CIERRE_PEDIDO = new Date('2026-10-04T23:59:59');
 function tickPedido(){
   const caja = document.getElementById('cd-pedido');
   if(!caja) return;
