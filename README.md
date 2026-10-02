@@ -676,6 +676,20 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .rc-pos{color:var(--texto-2);font-size:.72rem;min-width:22px;font-variant-numeric:tabular-nums}
 .record-card li{gap:8px}
 .record-card li .rc-nombre{flex:1;text-align:left}
+.cantera{margin-top:40px}
+.cantera h3{font-family:var(--condensada);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:1.15rem;margin-bottom:6px}
+.cantera h3 span{color:var(--trigo);font-size:.8rem;letter-spacing:.14em;margin-left:8px}
+.cantera-intro{font-size:.86rem;color:var(--texto-2);max-width:760px;margin-bottom:18px;line-height:1.55}
+.cantera-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.cant-card{background:var(--panel,rgba(255,255,255,.03));border:1px solid var(--borde);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.cant-nombre{font-family:var(--condensada);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;color:var(--trigo);line-height:1.1}
+.cant-nombre small{display:block;font-family:var(--cuerpo);font-weight:400;text-transform:none;letter-spacing:.02em;font-size:.7rem;color:var(--texto-2);margin-top:3px}
+.cant-pos{display:inline-block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--trigo);border:1px solid rgba(232,201,122,.45);border-radius:20px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.cant-fila{display:grid;grid-template-columns:62px 1fr;gap:8px;font-size:.8rem;color:var(--texto-2);line-height:1.45}
+.cant-fila b{font-family:var(--condensada);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;color:var(--texto);padding-top:2px}
+.cant-fila.upp b{color:var(--trigo)}
+.cantera-nota{margin-top:14px;font-size:.76rem;color:var(--texto-2);font-style:italic}
+.cantera-nota b{color:var(--trigo);font-weight:600}
 .hp-tec{margin-top:20px;padding-top:16px;border-top:1px solid var(--borde);font-size:.82rem;color:var(--texto-2)}
 .hp-tec b{color:#fff}
 /* ============ ¿TE ACUERDAS DE? ============ */
@@ -1264,6 +1278,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    </div>
    </div>
    <div class="resultado-goles">⚽ Ángel 47' y Ricky 90'</div>
+   <a class="galeria-link" href="https://www.instagram.com/p/Dd4azBujL3r/" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos del partido ▸</a>
    </div>
    <details class="colapsable">
    <summary><h3>⚽ Partidos</h3></summary>
@@ -1441,6 +1456,13 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <div class="records-club">
    <h3>🏅 Récords de todos los tiempos <span>2019–2026</span></h3>
    <div class="records-grid" id="records-grid"></div>
+   </div>
+   <!-- DE LA CANTERA DEL DEPOR AL UPP -->
+   <div class="cantera">
+   <h3>🌱 De la cantera del Depor al UPP <span>Herencia morada</span></h3>
+   <p class="cantera-intro">Jugadores formados en las categorías inferiores del <b>CD Palencia Balompié</b>, nuestro anterior club, que después vistieron la camiseta del Unión Popular. Varios llegaron desde el juvenil de Maristas, donde siguieron formándose tras la desaparición del Depor.</p>
+   <div class="cantera-grid" id="cantera-grid"></div>
+   <p class="cantera-nota">Estudio elaborado por <b>Eugenio Llamas</b> a partir de las plantillas del Depor desde la temporada 2014/15 (en 2012/13 y 2013/14 no hubo ningún caso).</p>
    </div>
    <!-- ¿TE ACUERDAS DE? -->
    <div class="recuerdos">
@@ -1851,7 +1873,8 @@ const EVENTOS = [
   { dia:22, tipo:"entreno", hora:"20:30–22:00" },
   { dia:24, tipo:"entreno", hora:"20:30–22:00" },
   { dia:26, tipo:"partido", hora:"17:30", rival:"CD Baltanás", campo:"C.M. Ceferino Atienza", local:false, nota:"Liga · Jornada 3", arbitro:"José Luis Ortega de Juana",
-   resultado:"1–2", goles:"Ángel y Ricky" },
+   resultado:"1–2", goles:"Ángel y Ricky",
+   galeria:"https://www.instagram.com/p/Dd4azBujL3r/" },
   { dia:29, tipo:"entreno", hora:"20:30–22:00" },
   { dia:4, mes:10, tipo:"partido", hora:"17:30", rival:"CD Monzón", campo:"Campo Sergio Asenjo 2", local:true, nota:"Liga · Jornada 4", jornada:4 }
 ];
@@ -2724,6 +2747,26 @@ pintarHistorico();
    <b>${r[1].toLocaleString('es-ES')}${suf}</b></li>`).join('')}</ol>
    </details>
   </div>`;}).join('');
+})();
+// ===== DE LA CANTERA DEL DEPOR AL UPP =====
+// alias: nombre con el que se le conoce · oficial: nombre completo · depor: paso por el CD Palencia Balompié · upp: paso por el UPP
+const CANTERA_DEPOR = [
+  { alias:"Carlos", oficial:"Juan Carlos Bartolomé Mendoza", depor:"Infantil 2015/16 (llegó a jugar un partido con el cadete)", upp:"2019/20 · 2 partidos, procedente del juvenil de Maristas" },
+  { alias:"Alain", oficial:"Alain Calleja Barroso", pos:"Portero", depor:"Infantil 2015/16", upp:"2019/20 · 1 partido, procedente del juvenil de Maristas" },
+  { alias:"Julio", oficial:"Julio César López Miguel", depor:"Cadete 2014/15 · Juvenil 2015/16 y 2017/18", upp:"2019/20" },
+  { alias:"Esaú", oficial:"Esaú Lozano Jiménez", depor:"Cadete 2016/17", upp:"2019/20 · 2 partidos, procedente del juvenil de Maristas" },
+  { alias:"Víctor", oficial:"Víctor Estébanez López", depor:"Depor B 2017/18", upp:"2021/22 y 2022/23" },
+  { alias:"Álex Martín", oficial:"Alejandro Martín Guzón", depor:"Juvenil 2014/15", upp:"2021/22" },
+  { alias:"Pepi", oficial:"Álvaro Santos Nicolás", depor:"Depor B 2017/18", upp:"2021/22" },
+  { alias:"Rodri", oficial:"Rodrigo de la Torre Cacho", depor:"Cadete 2017/18", upp:"2021/22 · 1 partido, procedente del juvenil de Maristas" }
+];
+(function pintarCantera(){
+  const g = document.getElementById('cantera-grid'); if(!g) return;
+  g.innerHTML = CANTERA_DEPOR.map(j=>`<div class="cant-card">
+   <div class="cant-nombre">${j.alias}${j.pos?`<span class="cant-pos">${j.pos}</span>`:''}<small>${j.oficial}</small></div>
+   <div class="cant-fila"><b>Depor</b><span>${j.depor}</span></div>
+   <div class="cant-fila upp"><b>UPP</b><span>${j.upp}</span></div>
+  </div>`).join('');
 })();
 // ===== ¿TE ACUERDAS DE? — Vídeos de YouTube =====
 // Para añadir un vídeo: pega el ID de YouTube (lo que va después de "watch?v=" o de "youtu.be/").
