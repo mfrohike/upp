@@ -183,6 +183,13 @@ nav.menu a.act::after{width:100%}
 .leyenda .pt.par{background:var(--trigo)}
 .cal-layout{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
 .calendario{background:linear-gradient(150deg,#1E1029,#120818);border:1px solid var(--borde);border-radius:18px;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.cal-nav{display:flex;align-items:center;gap:12px}
+.cal-nav h2{margin:0;min-width:200px}
+.cal-nav button{width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);background:rgba(255,255,255,.04);color:var(--texto);font-size:1.3rem;line-height:1;cursor:pointer;flex:none}
+.cal-nav button:disabled{opacity:.3;cursor:default}
+.cal-nav button:not(:disabled):hover{border-color:var(--trigo);color:var(--trigo)}
+.ev-desc{font-size:.6rem;color:var(--texto-2);font-style:italic}
+.agenda-vacio{font-size:.82rem;color:var(--texto-2);font-style:italic;list-style:none;border-left:none!important;padding-left:0!important}
 .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:10px}
 .cal-dow span{font-family:var(--condensada);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--lila);text-align:center;padding-bottom:8px;border-bottom:1px solid rgba(185,140,232,.35)}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
@@ -1251,34 +1258,35 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
 <section class="section" id="planning">
   <div class="wrap">
    <div class="section-head">
-   <div><span class="eyebrow">Pretemporada 26/27</span><h2 id="cal-titulo">Agosto 2026</h2></div>
+   <div><span class="eyebrow" id="cal-sub">Liga 26/27</span>
+   <div class="cal-nav"><button type="button" id="cal-prev" aria-label="Mes anterior">‹</button><h2 id="cal-titulo">Octubre 2026</h2><button type="button" id="cal-next" aria-label="Mes siguiente">›</button></div>
+   </div>
    <div class="leyenda">
    <span><i class="pt ent"></i> Entrenamiento</span>
    <span><i class="pt par"></i> Partido</span>
    </div>
    </div>
    <div class="cal-layout">
-   <div class="calendario" aria-label="Calendario de agosto de 2026">
+   <div class="calendario" id="calendario" aria-label="Calendario del mes">
    <div class="cal-dow"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
    <div class="cal-grid" id="cal-grid"></div>
    </div>
    <aside class="agenda">
    <div class="panel panel-ultimo">
    <h3>Último resultado</h3>
-   <div class="resultado-meta">Liga 26/27 · Jornada 3 · Ceferino Atienza (Baltanás)</div>
+   <div class="resultado-meta">Liga 26/27 · Jornada 4 · Sergio Asenjo</div>
    <div class="resultado">
-   <div>
-   <span id="res-rival-escudo"></span>
-   <div class="n">CD Baltanás</div>
-   </div>
-   <div class="marcador">1–2</div>
    <div>
    <img class="crest" src="" data-escudo alt="Escudo CD Unión Popular de Palencia">
    <div class="n">UP Palencia</div>
    </div>
+   <div class="marcador">5–1</div>
+   <div>
+   <span id="res-rival-escudo"></span>
+   <div class="n">CD Monzón</div>
    </div>
-   <div class="resultado-goles">⚽ Ángel 47' y Ricky 90'</div>
-   <a class="galeria-link" href="https://www.instagram.com/p/Dd4azBujL3r/" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos del partido ▸</a>
+   </div>
+   <div class="resultado-goles">⚽ Erik 19', 24' y 50' · Iker 82' · Ricky 88'</div>
    </div>
    <details class="colapsable">
    <summary><h3>⚽ Partidos</h3></summary>
@@ -1363,7 +1371,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <div class="jor-descansa" id="jor-descansa"></div>
    </div>
    <div class="panel panel-clasif">
-   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 3</span></h3><div class="clasif-scroll">
+   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 4</span></h3><div class="clasif-scroll">
    <table class="clasif">
    <thead><tr>
    <th>Pos</th><th>Equipo</th>
@@ -1715,23 +1723,23 @@ function escudoHTML(nombre, clase='crest'){
 // ===== CLASIFICACIÓN 1ª PROVINCIAL 26/27 (editable tras cada jornada) =====
 // Actualiza pj/pg/pe/pp/gf/gc/pts y reordena tras cada jornada; la web pinta sola.
 const CLASIFICACION = [
-  { equipo:"CD Villalobón",        pj:3, pg:3, pe:0, pp:0, gf:8, gc:3, pts:9 },
-  { equipo:"AD Villada",           pj:3, pg:2, pe:1, pp:0, gf:9, gc:3, pts:7 },
-  { equipo:"UP Palencia", propio:true, pj:3, pg:2, pe:1, pp:0, gf:9, gc:5, pts:7 },
-  { equipo:"UP Barruelo",          pj:3, pg:2, pe:0, pp:1, gf:11, gc:6, pts:6 },
-  { equipo:"Venta de Baños CF",    pj:3, pg:2, pe:0, pp:1, gf:5, gc:2, pts:6 },
-  { equipo:"CD Carrión",           pj:3, pg:1, pe:2, pp:0, gf:11, gc:4, pts:5 },
-  { equipo:"CD Saldaña",           pj:3, pg:1, pe:2, pp:0, gf:6, gc:2, pts:5 },
+  { equipo:"CD Villalobón",        pj:4, pg:4, pe:0, pp:0, gf:15, gc:3, pts:12 },
+  { equipo:"UP Palencia", propio:true, pj:4, pg:3, pe:1, pp:0, gf:14, gc:6, pts:10 },
+  { equipo:"AD Villada",           pj:4, pg:3, pe:1, pp:0, gf:11, gc:4, pts:10 },
+  { equipo:"Venta de Baños CF",    pj:4, pg:3, pe:0, pp:1, gf:8, gc:2, pts:9 },
+  { equipo:"CD Carrión",           pj:4, pg:2, pe:2, pp:0, gf:15, gc:5, pts:8 },
+  { equipo:"CD Saldaña",           pj:4, pg:2, pe:2, pp:0, gf:10, gc:2, pts:8 },
+  { equipo:"CD Velilla",           pj:3, pg:2, pe:1, pp:0, gf:6, gc:4, pts:7 },
+  { equipo:"UP Barruelo",          pj:4, pg:2, pe:0, pp:2, gf:13, gc:9, pts:6 },
+  { equipo:"CD Cervera",           pj:4, pg:2, pe:0, pp:2, gf:9, gc:7, pts:6 },
   { equipo:"CD Dueñas",            pj:3, pg:1, pe:1, pp:1, gf:11, gc:8, pts:4 },
-  { equipo:"CD Monzón",            pj:3, pg:1, pe:1, pp:1, gf:8, gc:7, pts:4 },
-  { equipo:"CD Velilla",           pj:2, pg:1, pe:1, pp:0, gf:3, gc:2, pts:4 },
-  { equipo:"CD Cervera",           pj:3, pg:1, pe:0, pp:2, gf:5, gc:6, pts:3 },
-  { equipo:"CD Guardo",            pj:3, pg:1, pe:0, pp:2, gf:9, gc:13, pts:3 },
-  { equipo:"CD Grijota",           pj:2, pg:1, pe:0, pp:1, gf:4, gc:8, pts:3 },
-  { equipo:"CD Baltanás",          pj:3, pg:0, pe:1, pp:2, gf:4, gc:12, pts:1 },
-  { equipo:"CD Aguilar",           pj:3, pg:0, pe:0, pp:3, gf:3, gc:9, pts:0 },
-  { equipo:"CDFC Paredes",         pj:2, pg:0, pe:0, pp:2, gf:1, gc:8, pts:0 },
-  { equipo:"CD Jóvenes Promesas",  pj:3, pg:0, pe:0, pp:3, gf:2, gc:11, pts:0 }
+  { equipo:"CD Monzón",            pj:4, pg:1, pe:1, pp:2, gf:9, gc:12, pts:4 },
+  { equipo:"CD Guardo",            pj:4, pg:1, pe:0, pp:3, gf:10, gc:17, pts:3 },
+  { equipo:"CD Grijota",           pj:3, pg:1, pe:0, pp:2, gf:4, gc:11, pts:3 },
+  { equipo:"CD Baltanás",          pj:4, pg:0, pe:1, pp:3, gf:4, gc:16, pts:1 },
+  { equipo:"CDFC Paredes",         pj:3, pg:0, pe:0, pp:3, gf:2, gc:10, pts:0 },
+  { equipo:"CD Aguilar",           pj:4, pg:0, pe:0, pp:4, gf:4, gc:13, pts:0 },
+  { equipo:"CD Jóvenes Promesas",  pj:4, pg:0, pe:0, pp:4, gf:2, gc:18, pts:0 }
 ].map((e,i)=>({ pos:i+1, pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ...e }));
 // ===== RESULTADOS DE TODAS LAS JORNADAS (fuente: actas RFCyLF) =====
 // Formato: [local, goles local, goles visitante, visitante]. Se añade cada jornada al recibir las actas.
@@ -1765,7 +1773,17 @@ const RESULTADOS = {
    ["CD Aguilar",2,6,"UP Barruelo"],
    ["CD Velilla",2,1,"Venta de Baños CF"],
    ["CD Jóvenes Promesas",1,4,"CD Cervera"]
-  ], descansa:"CDFC Paredes" }
+  ], descansa:"CDFC Paredes" },
+  4: { partidos:[
+   ["UP Palencia",5,1,"CD Monzón"],
+   ["CD Cervera",4,1,"CD Aguilar"],
+   ["UP Barruelo",2,3,"CD Velilla"],
+   ["CD Villalobón",7,0,"CD Jóvenes Promesas"],
+   ["CD Saldaña",4,0,"CD Baltanás"],
+   ["CD Guardo",1,4,"CD Carrión"],
+   ["AD Villada",2,1,"CDFC Paredes"],
+   ["Venta de Baños CF",3,0,"CD Grijota"]
+  ], descansa:"CD Dueñas" }
 };
 (function pintarJornadas(){
   const grid = document.getElementById('jor-grid'); if(!grid) return;
@@ -1814,8 +1832,8 @@ const LIGA = [
   { j:1, fecha:"2026-09-12", hora:"17:30", campo:"Municipal Eras de las Candelas", rival:"CD Dueñas", local:false, gf:5, gc:2 },
   { j:2, fecha:"2026-09-20", hora:"18:00", arbitro:"Luis Miguel Salceda González", rival:"CD Carrión", local:true, gf:2, gc:2 },
   { j:3, fecha:"2026-09-26", hora:"17:30", campo:"C.M. Ceferino Atienza", arbitro:"José Luis Ortega de Juana", rival:"CD Baltanás", local:false, gf:2, gc:1 },
-  { j:4, fecha:"2026-10-04", hora:"17:30", arbitro:"Jorge García Rojo", rival:"CD Monzón", local:true, gf:null, gc:null },
-  { j:5, fecha:"2026-10-11", rival:"CD Saldaña", local:true, gf:null, gc:null },
+  { j:4, fecha:"2026-10-04", hora:"17:30", arbitro:"Jorge García Rojo", rival:"CD Monzón", local:true, gf:5, gc:1 },
+  { j:5, fecha:"2026-10-11", hora:"17:30", rival:"CD Saldaña", local:true, gf:null, gc:null },
   { j:6, fecha:"2026-10-18", rival:"CD Guardo", local:false, gf:null, gc:null },
   { j:7, fecha:"2026-10-25", rival:"Pan y Guindas", local:true, gf:null, gc:null, descansa:true },
   { j:8, fecha:"2026-11-01", rival:"AD Villada", local:false, gf:null, gc:null },
@@ -1849,8 +1867,18 @@ const LIGA = [
 const CAMPO_LOCAL = 'Campo Sergio Asenjo';
 // La federación publica los horarios ~1 semana antes: hasta entonces, "Por definir".
 const HORA_DEFECTO = 'Por definir';
-// ===== PLANNING DEL MES (editable) =====
-const MES = { anio:2026, mes:9, nombre:"Septiembre 2026", subtitulo:"Arranca la Liga 26/27" };
+// ===== PLANNING (calendario navegable por meses) =====
+// El calendario abre en el mes actual y se puede pasar adelante/atrás dentro de la temporada.
+// Lo que se pinta cada mes es la suma de: EVENTOS explícitos (abajo) + partidos de LIGA que no tengan
+// evento explícito ese día + entrenamientos automáticos (ENTRENOS) los días de la semana indicados.
+const TEMPORADA = { desde:{ anio:2026, mes:9 }, hasta:{ anio:2027, mes:6 } };
+const SUBTITULOS = { "2026-9":"Arranca la Liga 26/27" }; // el resto: "Liga 26/27"
+// Entrenamientos automáticos: 2 = martes, 4 = jueves (1 = lunes … 7 = domingo). Fechas sin entreno en `sin` (formato "2026-12-24").
+const ENTRENOS = { dias:[2,4], hora:"20:30–22:00", desde:"2026-09-01", hasta:"2027-05-31", sin:[] };
+// Mes por defecto de los EVENTOS que no indiquen `mes` (los de septiembre). Año: mes >= 7 → 2026, si no → 2027.
+const MES_DEFECTO = 9;
+const anioDe = m => m >= 7 ? TEMPORADA.desde.anio : TEMPORADA.hasta.anio;
+const MES = { anio: anioDe(MES_DEFECTO), mes: MES_DEFECTO, subtitulo:"Liga 26/27" };
 // tipo: "entreno" | "partido"
 const EVENTOS = [
   { dia:1,  tipo:"entreno", hora:"20:30–22:00" },
@@ -1876,34 +1904,77 @@ const EVENTOS = [
    resultado:"1–2", goles:"Ángel y Ricky",
    galeria:"https://www.instagram.com/p/Dd4azBujL3r/" },
   { dia:29, tipo:"entreno", hora:"20:30–22:00" },
-  { dia:4, mes:10, tipo:"partido", hora:"17:30", rival:"CD Monzón", campo:"Campo Sergio Asenjo 2", local:true, nota:"Liga · Jornada 4", jornada:4, arbitro:"Jorge García Rojo" }
+  { dia:4, mes:10, tipo:"partido", hora:"17:30", rival:"CD Monzón", campo:"Campo Sergio Asenjo 2", local:true, nota:"Liga · Jornada 4", jornada:4, arbitro:"Jorge García Rojo",
+   resultado:"5–1", goles:"Erik (3), Iker y Ricky" }
 ];
 // El Memorial Ana García Gil es el torneo propio del club: homenaje a una
 // compañera fundadora y colaboradora fallecida de cáncer muy joven.
 const DOW = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
 const DOW_LARGO = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const NOMBRE_MES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const MES_MIN = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const fechaISO = (a,m,d) => `${a}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+// Eventos de un mes: explícitos + liga + entrenos automáticos
+function eventosDe(anio, mes){
+  const out = EVENTOS.filter(e => (e.mes||MES_DEFECTO)===mes && (e.anio||anioDe(e.mes||MES_DEFECTO))===anio).map(e=>({...e, mes, anio}));
+  if(typeof LIGA !== 'undefined'){
+   LIGA.forEach(p=>{
+   const [a,m,d] = p.fecha.split('-').map(Number);
+   if(a!==anio || m!==mes) return;
+   if(out.some(e=>e.dia===d && e.tipo==='partido')) return;
+   if(p.descansa){ out.push({ dia:d, mes, anio, tipo:'descanso', nota:`Jornada ${p.j} · descansa el UPP` }); return; }
+   out.push({ dia:d, mes, anio, tipo:'partido', hora:p.hora||HORA_DEFECTO, rival:p.rival, local:p.local,
+   campo: p.local ? CAMPO_LOCAL : (p.campo||'Campo del rival'), nota:`Liga · Jornada ${p.j}`, jornada:p.j, arbitro:p.arbitro,
+   resultado: p.gf!=null ? (p.local ? `${p.gf}–${p.gc}` : `${p.gc}–${p.gf}`) : undefined });
+   });
+  }
+  const dias = new Date(anio, mes, 0).getDate();
+  for(let d=1; d<=dias; d++){
+   const iso = fechaISO(anio,mes,d);
+   if(iso < ENTRENOS.desde || iso > ENTRENOS.hasta || ENTRENOS.sin.includes(iso)) continue;
+   const dow = ((new Date(anio, mes-1, d).getDay()+6)%7)+1;
+   if(!ENTRENOS.dias.includes(dow)) continue;
+   if(out.some(e=>e.dia===d && e.tipo==='entreno')) continue;
+   out.push({ dia:d, mes, anio, tipo:'entreno', hora:ENTRENOS.hora });
+  }
+  return out.sort((a,b)=>a.dia-b.dia);
+}
+const hoyCal = new Date();
+const CAL = { anio: hoyCal.getFullYear(), mes: hoyCal.getMonth()+1 };
+const calClave = (a,m) => a*12+m;
+if(calClave(CAL.anio,CAL.mes) < calClave(TEMPORADA.desde.anio,TEMPORADA.desde.mes)){ CAL.anio=TEMPORADA.desde.anio; CAL.mes=TEMPORADA.desde.mes; }
+if(calClave(CAL.anio,CAL.mes) > calClave(TEMPORADA.hasta.anio,TEMPORADA.hasta.mes)){ CAL.anio=TEMPORADA.hasta.anio; CAL.mes=TEMPORADA.hasta.mes; }
 function pintarCalendario(){
   const grid = document.getElementById('cal-grid');
-  document.getElementById('cal-titulo').textContent = MES.nombre;
-  const primero = new Date(MES.anio, MES.mes-1, 1);
-  const diasMes = new Date(MES.anio, MES.mes, 0).getDate();
+  const anio = CAL.anio, mes = CAL.mes;
+  document.getElementById('cal-titulo').textContent = `${NOMBRE_MES[mes-1]} ${anio}`;
+  const sub = document.getElementById('cal-sub'); if(sub) sub.textContent = SUBTITULOS[`${anio}-${mes}`] || 'Liga 26/27';
+  const cal = document.getElementById('calendario'); if(cal) cal.setAttribute('aria-label', `Calendario de ${NOMBRE_MES[mes-1].toLowerCase()} de ${anio}`);
+  const prev = document.getElementById('cal-prev'), next = document.getElementById('cal-next');
+  if(prev) prev.disabled = calClave(anio,mes) <= calClave(TEMPORADA.desde.anio,TEMPORADA.desde.mes);
+  if(next) next.disabled = calClave(anio,mes) >= calClave(TEMPORADA.hasta.anio,TEMPORADA.hasta.mes);
+  const EV = eventosDe(anio, mes);
+  const primero = new Date(anio, mes-1, 1);
+  const diasMes = new Date(anio, mes, 0).getDate();
   let offset = (primero.getDay() + 6) % 7; // lunes = 0
   const hoy = new Date();
   let out = '';
   for(let i=0;i<offset;i++) out += '<div class="dia vacio"></div>';
   for(let d=1; d<=diasMes; d++){
-   const evs = EVENTOS.filter(e=>e.dia===d && (e.mes||MES.mes)===MES.mes);
-   const dow = (new Date(MES.anio, MES.mes-1, d).getDay()+6)%7;
+   const evs = EV.filter(e=>e.dia===d);
+   const dow = (new Date(anio, mes-1, d).getDay()+6)%7;
    const cls = ['dia'];
    if(dow>=5) cls.push('finde');
    if(evs.some(e=>e.tipo==='partido')) cls.push('partido');
-   else if(evs.length) cls.push('entreno');
+   else if(evs.some(e=>e.tipo==='entreno')) cls.push('entreno');
    if(evs.some(e=>e.destacado)) cls.push('memorial');
-   if(hoy.getDate()===d && hoy.getMonth()===MES.mes-1 && hoy.getFullYear()===MES.anio) cls.push('hoy');
+   if(hoy.getDate()===d && hoy.getMonth()===mes-1 && hoy.getFullYear()===anio) cls.push('hoy');
    let inner = `<span class="n">${d}</span>`;
    evs.forEach(e=>{
    if(e.tipo==='partido'){
-   inner += `<span class="ev ev-partido">${escudoHTML(e.rival,'crest cal')}<b>${e.hora}</b></span>`;
+   inner += `<span class="ev ev-partido">${(e.rivales||[e.rival]).map(r=>escudoHTML(r,'crest cal')).join('')}<b>${e.hora}</b></span>`;
+   } else if(e.tipo==='descanso'){
+   inner += `<span class="ev ev-desc">Descanso</span>`;
    } else {
    inner += `<span class="ev">🔺 ${e.hora}</span>`;
    }
@@ -1911,13 +1982,14 @@ function pintarCalendario(){
    out += `<div class="${cls.join(' ')}">${inner}</div>`;
   }
   grid.innerHTML = out;
-  // Agenda lateral
+  grid.querySelectorAll('img[data-escudo]').forEach(i=>{ if(!i.getAttribute('src') && typeof ESCUDO_B64!=='undefined') i.src = ESCUDO_B64; });
+  // Agenda lateral: partidos del mes que se está viendo
   const lista = document.getElementById('agenda-lista');
-  lista.innerHTML = EVENTOS.filter(e=>e.tipo==='partido').map(e=>{
-   const m = e.mes || MES.mes;
-   const dow = DOW_LARGO[(new Date(MES.anio, m-1, e.dia).getDay()+6)%7];
-   const MES_MIN = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-   const fechaTxt = m===MES.mes ? `${dow} ${e.dia}` : `${dow} ${e.dia} ${MES_MIN[m-1]}`;
+  const partidos = EV.filter(e=>e.tipo==='partido' || e.tipo==='descanso');
+  lista.innerHTML = partidos.length ? partidos.map(e=>{
+   const dow = DOW_LARGO[(new Date(anio, mes-1, e.dia).getDay()+6)%7];
+   const fechaTxt = `${dow} ${e.dia}`;
+   if(e.tipo==='descanso') return `<li class="jugado"><div class="d">${fechaTxt}</div><div class="r">💤 Jornada de descanso</div><div class="c">${e.nota}</div></li>`;
    const crestas = (e.rivales||[e.rival]).map(r=>escudoHTML(r,'crest xs')).join('');
    return `<li class="${e.destacado?'memorial':''}${e.resultado?' jugado':''}">
    ${e.titulo?`<div class="mem-titulo">★ ${e.titulo}</div>`:''}
@@ -1925,14 +1997,24 @@ function pintarCalendario(){
    <div class="r">${crestas} ${e.local?'vs':'@'} ${e.rival}${e.resultado?` <b class="ag-res">${e.resultado}</b>`:''}</div>
    <div class="c">${e.resultado?`Final${e.goles?' · ⚽ '+e.goles:''}`:`${e.campo} · ${e.hora}`}${e.nota?' · '+e.nota:''}${(!e.resultado&&e.arbitro)?`<br><span class="ag-arb">Árbitro: ${e.arbitro}</span>`:''}${e.galeria?`<br><a class="ag-galeria" href="${e.galeria}" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos ▸</a>`:''}</div>
    </li>`;
-  }).join('');
+  }).join('') : '<li class="agenda-vacio">Sin partidos este mes.</li>';
+  if(typeof pintarLogosRedes === 'function') pintarLogosRedes(lista);
 }
+function moverMes(delta){
+  let m = CAL.mes + delta, a = CAL.anio;
+  if(m < 1){ m = 12; a--; } if(m > 12){ m = 1; a++; }
+  if(calClave(a,m) < calClave(TEMPORADA.desde.anio,TEMPORADA.desde.mes) || calClave(a,m) > calClave(TEMPORADA.hasta.anio,TEMPORADA.hasta.mes)) return;
+  CAL.anio = a; CAL.mes = m; pintarCalendario();
+}
+if(document.getElementById('cal-prev')) document.getElementById('cal-prev').addEventListener('click', ()=>moverMes(-1));
+if(document.getElementById('cal-next')) document.getElementById('cal-next').addEventListener('click', ()=>moverMes(1));
 // ===== PRÓXIMO PARTIDO (calculado desde EVENTOS) =====
 function proximoPartido(){
   const ahora = new Date();
   const partidos = EVENTOS.filter(e=>e.tipo==='partido').map(e=>{
    const hm = /^(\d{1,2}):(\d{2})$/.exec(e.hora);
-   const fecha = new Date(MES.anio, (e.mes||MES.mes)-1, e.dia, hm?+hm[1]:12, hm?+hm[2]:0);
+   const m = e.mes||MES_DEFECTO;
+   const fecha = new Date(e.anio||anioDe(m), m-1, e.dia, hm?+hm[1]:12, hm?+hm[2]:0);
    return {...e, fecha};
   }).filter(e=>e.fecha > ahora).sort((a,b)=>a.fecha-b.fecha);
   return partidos[0] || null;
@@ -1955,7 +2037,7 @@ if(P){
   document.getElementById('mp-meta').textContent = P.jornada
    ? `1ª Provincial 26/27 · Jornada ${P.jornada} · ${P.local?'En casa':'Fuera'}`
    : P.titulo ? `★ ${P.titulo} · ${P.nota||''}`.replace(/ · $/,'')
-   : `${MES.subtitulo} · ${P.local?'En casa':'Fuera'}`;
+   : `${SUBTITULOS[`${P.fecha.getFullYear()}-${P.fecha.getMonth()+1}`]||'Liga 26/27'} · ${P.local?'En casa':'Fuera'}`;
   const MES_ABR = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   document.getElementById('mp-fecha').textContent = `${dow} ${P.dia} ${MES_ABR[P.fecha.getMonth()]} · ${P.hora}`;
   document.getElementById('mp-campo').innerHTML = P.campo + (P.arbitro ? `<span class="mp-arbitro">Árbitro: ${P.arbitro}</span>` : '');
@@ -1996,10 +2078,13 @@ const LOGOS_REDES = {
   "x": "data:image/png;base64,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"
 };
 // Coloca el logo en cualquier elemento con data-logo="instagram|facebook|x"
-document.querySelectorAll('[data-logo]').forEach(el=>{
-  const src = LOGOS_REDES[el.dataset.logo];
-  if(src) el.style.backgroundImage = `url("${src}")`;
-});
+function pintarLogosRedes(root){
+  try{ (root||document).querySelectorAll('[data-logo]').forEach(el=>{
+   const src = LOGOS_REDES[el.dataset.logo];
+   if(src) el.style.backgroundImage = `url("${src}")`;
+  }); }catch(e){}
+}
+pintarLogosRedes(document);
 // ===== CONTACTO DEL CLUB =====
 // Cambia aquí el correo y se actualiza en toda la web (tienda, outlet, patrocinios, contacto).
 const EMAIL_CLUB = "oficina@unionpopularpalencia.com";
@@ -2833,7 +2918,7 @@ const vMarco = document.querySelector('.vid-marco');
 document.getElementById('vprev').addEventListener('click',()=>vMarco.scrollBy({left:-596,behavior:'smooth'}));
 document.getElementById('vnext').addEventListener('click',()=>vMarco.scrollBy({left:596,behavior:'smooth'}));
 // Escudo del rival en el último resultado
-document.getElementById('res-rival-escudo').innerHTML = escudoHTML('CD Baltanás','crest');
+document.getElementById('res-rival-escudo').innerHTML = escudoHTML('CD Monzón','crest');
 // ===== TIENDA =====
 // Enlace al perfil de PayPal del club (paypal.me/...). Pégalo aquí y aparecerá
 // el botón de pago junto a cada camiseta. Si se deja vacío, solo se muestra "Reservar".
