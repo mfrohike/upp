@@ -622,6 +622,20 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .liga-p.descansa{opacity:.6;border-style:dashed}
 .liga-p.descansa .nom{font-style:italic;color:var(--texto-2)}
 .ag-res{color:var(--trigo);margin-left:6px;font-variant-numeric:tabular-nums}
+.fichas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:-10px}
+.ficha{background:var(--superficie);border:1px solid var(--borde);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ficha-meta{font-family:var(--condensada);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-2);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ficha-meta b{color:var(--trigo);font-weight:600}
+.ficha-eq{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;text-align:center}
+.ficha-eq .crest{width:44px;height:44px;font-size:2.6rem;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
+.ficha-eq .n{font-family:var(--condensada);font-weight:600;text-transform:uppercase;font-size:.74rem;margin-top:5px;line-height:1.15}
+.ficha-eq .m{font-family:var(--display);font-size:2rem;color:var(--trigo);font-variant-numeric:tabular-nums}
+.ficha-eq .m.v{color:#6BD6A3} .ficha-eq .m.d{color:#F09A9A}
+.ficha-det{font-size:.78rem;color:var(--texto-2);line-height:1.55}
+.ficha-det b{color:#fff;font-weight:500}
+.ficha .ag-galeria{margin-top:2px}
+.ficha-vacio{color:var(--texto-2);font-size:.85rem}
+@media (max-width:640px){.fichas{grid-template-columns:1fr}}
 .agenda li.jugado .c{color:var(--texto-2)}
 .slide-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
 .slide-meta time{margin-bottom:0}
@@ -1284,27 +1298,32 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <aside class="agenda">
    <div class="panel panel-ultimo">
    <h3>Último resultado</h3>
-   <div class="resultado-meta">Liga 26/27 · Jornada 6 · La Camareta (Guardo)</div>
+   <div class="resultado-meta">Liga 26/27 · Jornada 8 · C.M. Villada</div>
    <div class="resultado">
    <div>
    <span id="res-rival-escudo"></span>
-   <div class="n">CD Guardo</div>
+   <div class="n">AD Villada</div>
    </div>
-   <div class="marcador">0–5</div>
+   <div class="marcador">2–2</div>
    <div>
    <img class="crest" src="" data-escudo alt="Escudo CD Unión Popular de Palencia">
    <div class="n">UP Palencia</div>
    </div>
    </div>
-   <div class="resultado-goles">⚽ Juan Pablo 4' · Ángel 11' · Dela 51' · Marco 74' · Ricky 88'</div>
+   <div class="resultado-goles">⚽ Dela 29' (p.) · Ángel 78'</div>
    </div>
-   <details class="colapsable">
+   <details class="colapsable" open>
    <summary><h3>⚽ Partidos</h3></summary>
    <ul id="agenda-lista"></ul>
    <p class="agenda-nota">Los entrenamientos de la semana se muestran en el calendario. Horarios sujetos a cambios del club.</p>
    </details>
    </aside>
    </div>
+   <!-- FICHAS DE PARTIDOS JUGADOS -->
+   <div class="section-head" style="margin-top:52px" id="resultados">
+   <div><span class="eyebrow">Liga 26/27 · Partidos jugados</span><h2>Resultados y fichas</h2></div>
+   </div>
+   <div class="fichas" id="fichas-jugados"></div>
    <!-- CALENDARIO LIGUERO -->
    <div class="section-head" style="margin-top:52px">
    <div><span class="eyebrow">Liga 26/27 · 34 jornadas</span><h2>Calendario de competición</h2></div>
@@ -1381,7 +1400,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <div class="jor-descansa" id="jor-descansa"></div>
    </div>
    <div class="panel panel-clasif">
-   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 7</span></h3><div class="clasif-scroll">
+   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 8</span></h3><div class="clasif-scroll">
    <table class="clasif">
    <thead><tr>
    <th>Pos</th><th>Equipo</th>
@@ -1761,23 +1780,23 @@ function escudoHTML(nombre, clase='crest'){
 // ===== CLASIFICACIÓN 1ª PROVINCIAL 26/27 (editable tras cada jornada) =====
 // Actualiza pj/pg/pe/pp/gf/gc/pts y reordena tras cada jornada; la web pinta sola.
 const CLASIFICACION = [
-  { equipo:"CD Villalobón",        pj:7, pg:6, pe:0, pp:1, gf:22, gc:5, pts:18 },
-  { equipo:"UP Palencia", propio:true, pj:6, pg:5, pe:1, pp:0, gf:22, gc:8, pts:16 },
-  { equipo:"CD Velilla",           pj:6, pg:5, pe:1, pp:0, gf:14, gc:7, pts:16 },
-  { equipo:"Venta de Baños CF",    pj:7, pg:5, pe:0, pp:2, gf:18, gc:6, pts:15 },
-  { equipo:"UP Barruelo",          pj:7, pg:5, pe:0, pp:2, gf:20, gc:12, pts:15 },
+  { equipo:"CD Villalobón",        pj:8, pg:7, pe:0, pp:1, gf:24, gc:5, pts:21 },
+  { equipo:"Venta de Baños CF",    pj:8, pg:6, pe:0, pp:2, gf:21, gc:8, pts:18 },
+  { equipo:"UP Palencia", propio:true, pj:7, pg:5, pe:2, pp:0, gf:24, gc:10, pts:17 },
+  { equipo:"UP Barruelo",          pj:8, pg:5, pe:1, pp:2, gf:24, gc:16, pts:16 },
+  { equipo:"CD Velilla",           pj:7, pg:5, pe:1, pp:1, gf:14, gc:8, pts:16 },
   { equipo:"CD Saldaña",           pj:7, pg:4, pe:2, pp:1, gf:18, gc:7, pts:14 },
-  { equipo:"CD Carrión",           pj:6, pg:3, pe:3, pp:0, gf:20, gc:8, pts:12 },
-  { equipo:"AD Villada",           pj:7, pg:3, pe:3, pp:1, gf:14, gc:11, pts:12 },
-  { equipo:"CD Dueñas",            pj:6, pg:2, pe:1, pp:3, gf:16, gc:13, pts:7 },
-  { equipo:"CD Cervera",           pj:6, pg:2, pe:1, pp:3, gf:13, gc:12, pts:7 },
-  { equipo:"CD Monzón",            pj:7, pg:2, pe:1, pp:4, gf:14, gc:19, pts:7 },
-  { equipo:"CD Baltanás",          pj:6, pg:1, pe:2, pp:3, gf:13, gc:17, pts:5 },
-  { equipo:"CD Grijota",           pj:6, pg:1, pe:1, pp:4, gf:7, gc:18, pts:4 },
-  { equipo:"CD Jóvenes Promesas",  pj:7, pg:1, pe:1, pp:5, gf:9, gc:25, pts:4 },
-  { equipo:"CD Guardo",            pj:7, pg:1, pe:0, pp:6, gf:11, gc:34, pts:3 },
-  { equipo:"CD Aguilar",           pj:7, pg:0, pe:1, pp:6, gf:8, gc:23, pts:1 },
-  { equipo:"CDFC Paredes",         pj:5, pg:0, pe:0, pp:5, gf:4, gc:18, pts:0 }
+  { equipo:"CD Carrión",           pj:7, pg:3, pe:4, pp:0, gf:24, gc:12, pts:13 },
+  { equipo:"AD Villada",           pj:8, pg:3, pe:4, pp:1, gf:16, gc:13, pts:13 },
+  { equipo:"CD Cervera",           pj:7, pg:3, pe:1, pp:3, gf:16, gc:13, pts:10 },
+  { equipo:"CD Monzón",            pj:8, pg:3, pe:1, pp:4, gf:17, gc:21, pts:10 },
+  { equipo:"CD Dueñas",            pj:7, pg:2, pe:1, pp:4, gf:17, gc:16, pts:7 },
+  { equipo:"CD Jóvenes Promesas",  pj:8, pg:2, pe:1, pp:5, gf:13, gc:28, pts:7 },
+  { equipo:"CD Baltanás",          pj:7, pg:1, pe:2, pp:4, gf:15, gc:20, pts:5 },
+  { equipo:"CD Grijota",           pj:7, pg:1, pe:1, pp:5, gf:10, gc:22, pts:4 },
+  { equipo:"CD Aguilar",           pj:8, pg:1, pe:1, pp:6, gf:9, gc:23, pts:4 },
+  { equipo:"CD Guardo",            pj:8, pg:1, pe:0, pp:7, gf:13, gc:37, pts:3 },
+  { equipo:"CDFC Paredes",         pj:6, pg:0, pe:0, pp:6, gf:4, gc:20, pts:0 }
 ].map((e,i)=>({ pos:i+1, pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ...e }));
 // ===== RESULTADOS DE TODAS LAS JORNADAS (fuente: actas RFCyLF) =====
 // Formato: [local, goles local, goles visitante, visitante]. Se añade cada jornada al recibir las actas.
@@ -1851,7 +1870,17 @@ const RESULTADOS = {
    ["CD Monzón",3,1,"CD Aguilar"],
    ["CD Velilla",3,0,"CD Jóvenes Promesas"],
    ["CDFC Paredes",null,null,"CD Cervera"]
-  ], descansa:"UP Palencia · Carejas Paredes–Cervera suspendido en el 85' (2–2) por falta de luz, pendiente de la Federación" }
+  ], descansa:"UP Palencia · Carejas Paredes–Cervera suspendido en el 85' (2–2) por falta de luz, pendiente de la Federación" },
+  8: { partidos:[
+   ["AD Villada",2,2,"UP Palencia"],
+   ["CD Cervera",3,1,"CD Dueñas"],
+   ["CD Aguilar",1,0,"CD Velilla"],
+   ["CD Villalobón",2,0,"CDFC Paredes"],
+   ["Venta de Baños CF",3,2,"CD Baltanás"],
+   ["UP Barruelo",4,4,"CD Carrión"],
+   ["CD Guardo",2,3,"CD Monzón"],
+   ["CD Jóvenes Promesas",4,3,"CD Grijota"]
+  ], descansa:"CD Saldaña" }
 };
 (function pintarJornadas(){
   const grid = document.getElementById('jor-grid'); if(!grid) return;
@@ -1904,8 +1933,8 @@ const LIGA = [
   { j:5, fecha:"2026-10-11", hora:"17:30", arbitro:"Luis Fernando Alonso Infante", rival:"CD Saldaña", local:true, gf:3, gc:2 },
   { j:6, fecha:"2026-10-18", hora:"17:00", campo:"C.M. La Camareta", arbitro:"José Luis Ortega de Juana", rival:"CD Guardo", local:false, gf:5, gc:0 },
   { j:7, fecha:"2026-10-25", rival:"Descanso", local:true, gf:null, gc:null, descansa:true },
-  { j:8, fecha:"2026-10-31", hora:"16:30", campo:"C.M. Villada", rival:"AD Villada", local:false, gf:null, gc:null },
-  { j:9, fecha:"2026-11-08", rival:"Venta de Baños CF", local:true, gf:null, gc:null },
+  { j:8, fecha:"2026-10-31", hora:"16:30", campo:"C.M. Villada", arbitro:"Gonzalo de la Rosa Fernández", rival:"AD Villada", local:false, gf:2, gc:2 },
+  { j:9, fecha:"2026-11-08", hora:"16:30", rival:"Venta de Baños CF", local:true, gf:null, gc:null },
   { j:10, fecha:"2026-11-15", campo:"C.M. La Pedrosa", rival:"UP Barruelo", local:false, gf:null, gc:null },
   { j:11, fecha:"2026-11-22", rival:"CD Cervera", local:true, gf:null, gc:null },
   { j:12, fecha:"2026-11-29", campo:"C.M. Iván Helguera", rival:"CD Villalobón", local:false, gf:null, gc:null },
@@ -1993,7 +2022,9 @@ const EVENTOS = [
    resultado:"3–2", goles:"Juan Pablo y Dela (2)",
    galeria:"https://www.instagram.com/p/DeaBzA5DTF_T60g8ZPj_koK5hm0Q4au11epRvo0/" },
   { dia:18, mes:10, tipo:"partido", hora:"17:00", rival:"CD Guardo", campo:"C.M. La Camareta", local:false, nota:"Liga · Jornada 6", jornada:6, arbitro:"José Luis Ortega de Juana",
-   resultado:"0–5", goles:"Juan Pablo, Ángel, Dela, Marco y Ricky" }
+   resultado:"0–5", goles:"Juan Pablo, Ángel, Dela, Marco y Ricky" },
+  { dia:31, mes:10, tipo:"partido", hora:"16:30", rival:"AD Villada", campo:"C.M. Villada", local:false, nota:"Liga · Jornada 8", jornada:8, arbitro:"Gonzalo de la Rosa Fernández",
+   resultado:"2–2", goles:"Dela (p.) y Ángel" }
 ];
 // El Memorial Ana García Gil es el torneo propio del club: homenaje a una
 // compañera fundadora y colaboradora fallecida de cáncer muy joven.
@@ -2577,6 +2608,34 @@ document.querySelectorAll('.liga-f').forEach(b=>b.addEventListener('click',()=>{
   b.classList.add('on'); pintarLiga(b.dataset.f);
 }));
 pintarLiga();
+// ===== FICHAS DE PARTIDOS JUGADOS (LIGA + datos del EVENTO de ese día) =====
+(function pintarFichas(){
+  const cont = document.getElementById('fichas-jugados'); if(!cont || typeof LIGA==='undefined') return;
+  const jugados = LIGA.filter(p => !p.descansa && p.gf!==null && p.gc!==null).slice().reverse();
+  if(!jugados.length){ cont.innerHTML = '<p class="ficha-vacio">Todavía no se ha disputado ningún partido de liga.</p>'; return; }
+  const upp = '<img class="crest crest-img" src="" data-escudo alt="Escudo UP Palencia">';
+  cont.innerHTML = jugados.map(p=>{
+   const [a,m,d] = p.fecha.split('-').map(Number);
+   const ev = (typeof EVENTOS!=='undefined') ? EVENTOS.find(e => e.tipo==='partido' && e.dia===d && (e.mes||MES_DEFECTO)===m && (e.anio||anioDe(e.mes||MES_DEFECTO))===a) : null;
+   const r = p.gf > p.gc ? 'v' : (p.gf === p.gc ? 'e' : 'd');
+   const marcador = p.local ? `${p.gf}–${p.gc}` : `${p.gc}–${p.gf}`;
+   const campo = (ev && ev.campo) || p.campo || CAMPO_LOCAL;
+   const hora = (ev && ev.hora) || p.hora || '';
+   const arbitro = (ev && ev.arbitro) || p.arbitro || '';
+   const goles = ev && ev.goles ? ev.goles : '';
+   const galeria = ev && ev.galeria ? ev.galeria : '';
+   const izq = p.local ? `<div>${upp}<div class="n">UP Palencia</div></div>` : `<div>${escudoHTML(p.rival,'crest')}<div class="n">${p.rival}</div></div>`;
+   const der = p.local ? `<div>${escudoHTML(p.rival,'crest')}<div class="n">${p.rival}</div></div>` : `<div>${upp}<div class="n">UP Palencia</div></div>`;
+   return `<article class="ficha ${r}">
+   <div class="ficha-meta"><span><b>Jornada ${p.j}</b> · ${fechaCorta(p.fecha)}${hora?' · '+hora:''}</span><span>${p.local?'Casa':'Fuera'}</span></div>
+   <div class="ficha-eq">${izq}<div class="m ${r}">${marcador}</div>${der}</div>
+   <div class="ficha-det">${goles?`⚽ <b>${goles}</b><br>`:''}${campo}${campoInfo(campo)?` · ${campoInfo(campo)}`:''}${arbitro?`<br>Árbitro: ${arbitro}`:''}</div>
+   ${galeria?`<a class="ag-galeria" href="${galeria}" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Galería de fotos del partido ▸</a>`:''}
+   </article>`;
+  }).join('');
+  try{ cont.querySelectorAll('img[data-escudo]').forEach(i=>{ if(!i.getAttribute('src')) i.src = ESCUDO_B64; }); }catch(e){}
+  if(typeof pintarLogosRedes === 'function') pintarLogosRedes(cont);
+})();
 // ===== HISTÓRICO DE TEMPORADAS =====
 // Datos de lapreferente.com (no oficial) y prensa local. Edita o amplía libremente.
 const TEMPORADAS = [
@@ -2866,13 +2925,13 @@ function panelTemporada(i){
 }
 // ===== TEMPORADA EN CURSO 26/27 (se construye sola desde LIGA, RESULTADOS y CLASIFICACION) =====
 // STATS_ACTUAL: [nombre, partidos jugados, titularidades, goles (negativo = encajados del portero), amarillas, rojas]
-// Fuente: actas RFCyLF J1–J6 (J6: 46' Piqué por Sofiichuk · 54' Ricky por Iker · 54' Erik por Omar · 68' Aitor por Juan Pablo).
+// Fuente: actas RFCyLF J1–J8 (J8: 59' Iker por Ricky · 67' Santiso por Erik · 75' Marco por Piqué · 85' Aitor por Juan Pablo; Yimbo expulsado por doble amarilla 82').
 const STATS_ACTUAL = [
-  ["Erik Pedrejón",5,4,4,1,0],["Dela",5,5,4,0,0],["Juan Pablo",6,4,3,1,0],["Ricky",5,1,3,0,0],
-  ["Adrián Pereira",2,2,2,0,0],["Iker Fernández",6,1,2,0,0],["Ángel",6,3,2,1,0],["Mario",6,6,1,1,0],
-  ["Marco García",6,4,1,2,0],["Víctor",5,5,0,0,0],["Sergio",6,6,0,0,0],["Volodymyr Sofiichuk",6,6,0,1,0],
-  ["Omar Machón",5,5,0,0,0],["Aitor Fernández",5,4,0,0,0],["Yimbo",5,4,0,2,0],["Alejandro Ñaño",2,0,0,0,0],
-  ["Raimundo Mitogo (baja)",2,0,0,0,0],["Piqué",1,0,0,0,0],["Nieto",4,4,-6,0,0],["Manuel Paredes",2,2,-2,0,0]
+  ["Dela",6,6,5,0,0],["Erik Pedrejón",6,5,4,1,0],["Juan Pablo",7,5,3,1,0],["Ricky",6,2,3,0,0],["Ángel",7,4,3,1,0],
+  ["Adrián Pereira",2,2,2,0,0],["Iker Fernández",7,1,2,0,0],["Mario",7,7,1,1,0],["Marco García",7,4,1,2,0],
+  ["Víctor",5,5,0,0,0],["Sergio",7,7,0,0,0],["Volodymyr Sofiichuk",7,7,0,1,0],["Omar Machón",5,5,0,0,0],
+  ["Aitor Fernández",6,4,0,0,0],["Yimbo",6,5,0,4,1],["Piqué",2,1,0,0,0],["Alejandro Ñaño",2,0,0,0,0],
+  ["Daniel Santiso",1,0,0,0,0],["Raimundo Mitogo (baja)",2,0,0,0,0],["Nieto",5,5,-8,0,0],["Manuel Paredes",2,2,-2,0,0]
 ];
 (function temporadaActual(){
   if(typeof LIGA==='undefined' || typeof CLASIFICACION==='undefined') return;
@@ -3055,7 +3114,7 @@ const vMarco = document.querySelector('.vid-marco');
 document.getElementById('vprev').addEventListener('click',()=>vMarco.scrollBy({left:-596,behavior:'smooth'}));
 document.getElementById('vnext').addEventListener('click',()=>vMarco.scrollBy({left:596,behavior:'smooth'}));
 // Escudo del rival en el último resultado
-document.getElementById('res-rival-escudo').innerHTML = escudoHTML('CD Guardo','crest');
+document.getElementById('res-rival-escudo').innerHTML = escudoHTML('AD Villada','crest');
 // ===== TIENDA =====
 // Enlace al perfil de PayPal del club (paypal.me/...). Pégalo aquí y aparecerá
 // el botón de pago junto a cada camiseta. Si se deja vacío, solo se muestra "Reservar".
