@@ -74,6 +74,7 @@ h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.02em;text-tr
 }
 .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:34px}
 .section-head h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+.section-head .eyebrow{display:block;margin-bottom:6px}
 .section-head a{font-family:var(--condensada);font-weight:600;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lila);white-space:nowrap}
 .section-head a:hover{color:var(--trigo)}
 .btn{display:inline-block;font-family:var(--condensada);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;padding:14px 28px;border-radius:6px;transition:transform .25s,background .25s,color .25s;cursor:pointer;border:none}
@@ -370,7 +371,7 @@ td .crest.xs{vertical-align:middle;margin-right:9px}
 .panel{background:var(--superficie);border:1px solid var(--borde);border-radius:14px;padding:26px}
 .panel h3{font-size:1.3rem;margin-bottom:18px;color:var(--lila)}
 .resultado{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;text-align:center;padding:18px 0}
-.resultado .marcador{font-family:var(--display);font-size:3.4rem;color:var(--trigo)}
+.resultado .marcador{font-family:var(--display);font-size:3.4rem;color:var(--trigo);white-space:nowrap}
 .resultado .n{font-family:var(--condensada);font-weight:600;text-transform:uppercase;font-size:.85rem;margin-top:8px}
 .resultado-meta{text-align:center;font-size:.78rem;color:var(--texto-2);letter-spacing:.12em;text-transform:uppercase;font-family:var(--condensada)}
 table.clasif{width:100%;border-collapse:collapse;font-size:.9rem}
@@ -622,7 +623,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .jp-eq:last-child{justify-content:flex-end;text-align:right}
 .jp-eq:last-child .crest{order:2}
 .jp-eq.propio span{color:var(--trigo);font-weight:600}
-.jp-res{font-family:var(--display);font-size:1.1rem;color:#fff;background:rgba(0,0,0,.35);padding:2px 10px;border-radius:8px;font-variant-numeric:tabular-nums}
+.jp-res{font-family:var(--display);font-size:1.1rem;color:#fff;background:rgba(0,0,0,.35);padding:2px 10px;border-radius:8px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .jor-descansa{margin-top:10px;font-size:.78rem;color:var(--texto-2);font-style:italic}
 .jor-vacio{color:var(--texto-2);font-size:.85rem}
 .clasif-jor{font-family:var(--condensada);font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--trigo);margin-left:10px}
@@ -630,7 +631,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .jug .alias{font-size:.72rem;color:var(--trigo);letter-spacing:.04em;margin-top:2px}
 .liga-p.descansa{opacity:.6;border-style:dashed}
 .liga-p.descansa .nom{font-style:italic;color:var(--texto-2)}
-.ag-res{color:var(--trigo);margin-left:6px;font-variant-numeric:tabular-nums}
+.ag-res{color:var(--trigo);margin-left:6px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .fichas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:-10px}
 .ficha{background:var(--superficie);border:1px solid var(--borde);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
 .ficha-meta{font-family:var(--condensada);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-2);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
@@ -638,7 +639,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .ficha-eq{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;text-align:center}
 .ficha-eq .crest{width:44px;height:44px;font-size:2.6rem;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
 .ficha-eq .n{font-family:var(--condensada);font-weight:600;text-transform:uppercase;font-size:.74rem;margin-top:5px;line-height:1.15}
-.ficha-eq .m{font-family:var(--display);font-size:2rem;color:var(--trigo);font-variant-numeric:tabular-nums}
+.ficha-eq .m{font-family:var(--display);font-size:2rem;color:var(--trigo);font-variant-numeric:tabular-nums;white-space:nowrap}
 .ficha-eq .m.v{color:#6BD6A3} .ficha-eq .m.d{color:#F09A9A}
 .ficha-det{font-size:.78rem;color:var(--texto-2);line-height:1.55}
 .ficha-det b{color:#fff;font-weight:500}
@@ -832,7 +833,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .outlet-nota b{color:var(--trigo)}
 .pedido-cerrado a{display:inline-block;margin-top:6px;color:var(--trigo);text-decoration:underline;font-size:.82rem}
 .out-temp{position:absolute;top:11px;left:11px;font-family:var(--condensada);font-size:.68rem;letter-spacing:.14em;background:rgba(10,4,16,.72);border:1px solid var(--borde);border-radius:5px;padding:3px 9px}
-.stock-badge{position:absolute;top:11px;right:11px;font-family:var(--condensada);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border-radius:5px;padding:3px 9px}
+.stock-badge{position:absolute;top:11px;right:11px;max-width:calc(100% - 86px);text-align:center;line-height:1.3;font-family:var(--condensada);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;border-radius:5px;padding:3px 9px}
 .stock-badge.ok{background:rgba(42,161,103,.22);border:1px solid #2AA167;color:#6BD6A3}
 .stock-badge.poco{background:rgba(232,201,122,.18);border:1px solid var(--trigo);color:var(--trigo)}
 .stock-badge.no{background:rgba(200,60,60,.18);border:1px solid #C24444;color:#F09A9A}
@@ -979,7 +980,8 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
   .cd-box .lab{font-size:.56rem;letter-spacing:.14em;margin-top:3px}
   /* --- Secciones y titulares --- */
   .section{padding:44px 0}
-  .section-head{margin-bottom:24px;gap:10px}
+  .section-head{margin-bottom:24px;gap:10px;flex-wrap:wrap}
+  .section-head .leyenda,.section-head .fuentes,.section-head .liga-filtros{flex-wrap:wrap}
   .section-head h2{font-size:clamp(1.55rem,7vw,2rem)}
   .eyebrow{font-size:.68rem;letter-spacing:.18em}
   .auto-nota{font-size:.68rem}
