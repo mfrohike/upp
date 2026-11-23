@@ -1309,21 +1309,19 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <aside class="agenda">
    <div class="panel panel-ultimo">
    <h3>Último resultado</h3>
-   <div class="resultado-meta">Liga 26/27 · Jornada 10 · La Pedrosa (Barruelo)</div>
+   <div class="resultado-meta">Liga 26/27 · Jornada 11 · Sergio Asenjo</div>
    <div class="resultado">
-   <div>
-   <span id="res-rival-escudo"></span>
-   <div class="n">UP Barruelo</div>
-   </div>
-   <div class="marcador">0–2</div>
    <div>
    <img class="crest" src="" data-escudo alt="Escudo CD Unión Popular de Palencia">
    <div class="n">UP Palencia</div>
    </div>
+   <div class="marcador">1–0</div>
+   <div>
+   <span id="res-rival-escudo"></span>
+   <div class="n">CD Cervera</div>
    </div>
-   <div class="resultado-goles">⚽ Juan Pablo 55' · Yimbo 61'</div>
-   <a class="galeria-link" href="https://www.instagram.com/p/DfxM5lWjWJ8/" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="instagram"></i> Álbum del club ▸</a>
-   <a class="galeria-link" href="https://www.facebook.com/share/p/1LXXHNXn6C/" target="_blank" rel="noopener"><i class="ic-red mini" data-logo="facebook"></i> Fotos de Paco Ditesa ▸</a>
+   </div>
+   <div class="resultado-goles">⚽ Dela 64' (p.)</div>
    </div>
    <details class="colapsable" open>
    <summary><h3>⚽ Partidos</h3></summary>
@@ -1420,7 +1418,7 @@ footer{background:#0E0716;border-top:1px solid var(--borde);padding:56px 0 0;mar
    <div class="jor-descansa" id="jor-descansa"></div>
    </div>
    <div class="panel panel-clasif">
-   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 10</span></h3><div class="clasif-scroll">
+   <h3>Clasificación · 1ª Provincial 26/27 <span class="clasif-jor">Tras la jornada 11</span></h3><div class="clasif-scroll">
    <table class="clasif">
    <thead><tr>
    <th>Pos</th><th>Equipo</th>
@@ -1802,23 +1800,23 @@ function escudoHTML(nombre, clase='crest'){
 // ===== CLASIFICACIÓN 1ª PROVINCIAL 26/27 (editable tras cada jornada) =====
 // Actualiza pj/pg/pe/pp/gf/gc/pts y reordena tras cada jornada; la web pinta sola.
 const CLASIFICACION = [
-  { equipo:"CD Villalobón",        pj:10, pg:8, pe:0, pp:2, gf:26, gc:9, pts:24 },
-  { equipo:"Venta de Baños CF",    pj:10, pg:7, pe:1, pp:2, gf:23, gc:9, pts:22 },
-  { equipo:"UP Palencia", propio:true, pj:9, pg:6, pe:3, pp:0, gf:27, gc:11, pts:21 },
+  { equipo:"CD Villalobón",        pj:11, pg:9, pe:0, pp:2, gf:28, gc:10, pts:27 },
+  { equipo:"Venta de Baños CF",    pj:11, pg:8, pe:1, pp:2, gf:26, gc:9, pts:25 },
+  { equipo:"UP Palencia", propio:true, pj:10, pg:7, pe:3, pp:0, gf:28, gc:11, pts:24 },
+  { equipo:"CD Velilla",           pj:10, pg:7, pe:1, pp:2, gf:20, gc:14, pts:22 },
   { equipo:"AD Villada",           pj:10, pg:5, pe:4, pp:1, gf:26, gc:13, pts:19 },
   { equipo:"UP Barruelo",          pj:10, pg:6, pe:1, pp:3, gf:31, gc:19, pts:19 },
-  { equipo:"CD Velilla",           pj:9, pg:6, pe:1, pp:2, gf:17, gc:12, pts:19 },
-  { equipo:"CD Cervera",           pj:9, pg:5, pe:1, pp:3, gf:21, gc:16, pts:16 },
+  { equipo:"CD Cervera",           pj:11, pg:5, pe:2, pp:4, gf:23, gc:19, pts:17 },
+  { equipo:"CD Monzón",            pj:10, pg:5, pe:1, pp:4, gf:23, gc:24, pts:16 },
   { equipo:"CD Saldaña",           pj:9, pg:4, pe:2, pp:3, gf:18, gc:11, pts:14 },
   { equipo:"CD Carrión",           pj:9, pg:3, pe:4, pp:2, gf:27, gc:17, pts:13 },
-  { equipo:"CD Dueñas",            pj:9, pg:4, pe:1, pp:4, gf:23, gc:17, pts:13 },
-  { equipo:"CD Monzón",            pj:9, pg:4, pe:1, pp:4, gf:20, gc:22, pts:13 },
+  { equipo:"CD Dueñas",            pj:10, pg:4, pe:1, pp:5, gf:23, gc:20, pts:13 },
+  { equipo:"CD Aguilar",           pj:11, pg:3, pe:1, pp:7, gf:18, gc:28, pts:10 },
   { equipo:"CD Jóvenes Promesas",  pj:10, pg:3, pe:1, pp:6, gf:17, gc:31, pts:10 },
-  { equipo:"CD Grijota",           pj:9, pg:2, pe:1, pp:6, gf:14, gc:24, pts:7 },
-  { equipo:"CD Aguilar",           pj:10, pg:2, pe:1, pp:7, gf:15, gc:28, pts:7 },
-  { equipo:"CD Baltanás",          pj:9, pg:1, pe:2, pp:6, gf:17, gc:29, pts:5 },
-  { equipo:"CD Guardo",            pj:9, pg:1, pe:0, pp:8, gf:13, gc:44, pts:3 },
-  { equipo:"CDFC Paredes",         pj:8, pg:0, pe:0, pp:8, gf:6, gc:29, pts:0 }
+  { equipo:"CD Grijota",           pj:10, pg:2, pe:1, pp:7, gf:16, gc:27, pts:7 },
+  { equipo:"CD Baltanás",          pj:10, pg:1, pe:2, pp:7, gf:18, gc:31, pts:5 },
+  { equipo:"CD Guardo",            pj:10, pg:1, pe:0, pp:9, gf:13, gc:47, pts:3 },
+  { equipo:"CDFC Paredes",         pj:10, pg:0, pe:1, pp:9, gf:10, gc:34, pts:1 }
 ].map((e,i)=>({ pos:i+1, pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ...e }));
 // ===== RESULTADOS DE TODAS LAS JORNADAS (fuente: actas RFCyLF) =====
 // Formato: [local, goles local, goles visitante, visitante]. Se añade cada jornada al recibir las actas.
@@ -1891,8 +1889,8 @@ const RESULTADOS = {
    ["CD Carrión",3,1,"Venta de Baños CF"],
    ["CD Monzón",3,1,"CD Aguilar"],
    ["CD Velilla",3,0,"CD Jóvenes Promesas"],
-   ["CDFC Paredes",null,null,"CD Cervera"]
-  ], descansa:"UP Palencia · Carejas Paredes–Cervera suspendido en el 85' (2–2) por falta de luz, pendiente de la Federación" },
+   ["CDFC Paredes",2,2,"CD Cervera"]
+  ], descansa:"UP Palencia · El Carejas Paredes–Cervera, suspendido en el 85' por falta de luz, se dio por finalizado con 2–2" },
   8: { partidos:[
    ["AD Villada",2,2,"UP Palencia"],
    ["CD Cervera",3,1,"CD Dueñas"],
@@ -1922,7 +1920,17 @@ const RESULTADOS = {
    ["AD Villada",7,0,"CD Guardo"],
    ["CD Jóvenes Promesas",1,3,"CD Dueñas"],
    ["CD Aguilar",6,2,"CDFC Paredes"]
-  ], descansa:"CD Monzón" }
+  ], descansa:"CD Monzón" },
+  11: { partidos:[
+   ["UP Palencia",1,0,"CD Cervera"],
+   ["CD Dueñas",0,3,"CD Aguilar"],
+   ["CD Baltanás",1,2,"CD Villalobón"],
+   ["CD Monzón",3,2,"CD Grijota"],
+   ["CDFC Paredes",2,3,"CD Velilla"],
+   ["CD Guardo",0,3,"Venta de Baños CF"],
+   ["CD Saldaña",null,null,"UP Barruelo"],
+   ["CD Carrión",null,null,"CD Jóvenes Promesas"]
+  ], descansa:"AD Villada · Saldaña–Barruelo y Carrión–Jóvenes Promesas, aplazados por lluvia" }
 };
 (function pintarJornadas(){
   const grid = document.getElementById('jor-grid'); if(!grid) return;
@@ -1978,8 +1986,8 @@ const LIGA = [
   { j:8, fecha:"2026-10-31", hora:"16:30", campo:"C.M. Villada", arbitro:"Gonzalo de la Rosa Fernández", rival:"AD Villada", local:false, gf:2, gc:2 },
   { j:9, fecha:"2026-11-08", hora:"16:30", rival:"Venta de Baños CF", local:true, gf:1, gc:1 },
   { j:10, fecha:"2026-11-14", hora:"16:00", campo:"C.M. La Pedrosa", arbitro:"Marcos Ortega Herrero", rival:"UP Barruelo", local:false, gf:2, gc:0 },
-  { j:11, fecha:"2026-11-22", hora:"16:00", campo:"Campo Sergio Asenjo 2", rival:"CD Cervera", local:true, gf:null, gc:null },
-  { j:12, fecha:"2026-11-29", campo:"C.M. Iván Helguera", rival:"CD Villalobón", local:false, gf:null, gc:null },
+  { j:11, fecha:"2026-11-22", hora:"16:00", campo:"Campo Sergio Asenjo 2", arbitro:"Iulian Luta", rival:"CD Cervera", local:true, gf:1, gc:0 },
+  { j:12, fecha:"2026-11-28", hora:"16:00", campo:"C.M. Iván Helguera", rival:"CD Villalobón", local:false, gf:null, gc:null },
   { j:13, fecha:"2026-12-13", rival:"CD Jóvenes Promesas", local:true, gf:null, gc:null },
   { j:14, fecha:"2026-12-20", campo:"C.M.D. Alberto Fernández", rival:"CD Aguilar", local:false, gf:null, gc:null },
   { j:15, fecha:"2027-01-10", rival:"CD Velilla", local:true, gf:null, gc:null },
@@ -2017,7 +2025,8 @@ const CAMPOS = {
   "C.M. La Bárcena":{ medidas:"102×70 m" },
   "C.M.D. Alberto Fernández":{ medidas:"102×66 m" },
   "C.M. La Serna":{ medidas:"97×60 m" },
-  "C.M. La Pedrosa":{ medidas:"90×50 m" }
+  "C.M. La Pedrosa":{ medidas:"90×50 m" },
+  "C.M. Iván Helguera":{ medidas:"90×50 m" }
 };
 // Galerías de un partido: galeria:"url" = álbum de Instagram de Marta P.; galerias:[{url, red:"instagram|facebook", texto}] para otros autores
 const AUTORA_GALERIA = "Marta P.";
@@ -2082,7 +2091,9 @@ const EVENTOS = [
    galeria:"https://www.instagram.com/p/DfhiopECE9NCW7h13tIWtAbmZTRm663BZ8czPU0/" },
   { dia:14, mes:11, tipo:"partido", hora:"16:00", rival:"UP Barruelo", campo:"C.M. La Pedrosa", local:false, nota:"Liga · Jornada 10", jornada:10, arbitro:"Marcos Ortega Herrero",
    resultado:"0–2", goles:"Juan Pablo y Yimbo",
-   galerias:[{url:"https://www.instagram.com/p/DfxM5lWjWJ8/", red:"instagram", texto:"Álbum del club"},{url:"https://www.facebook.com/share/p/1LXXHNXn6C/", red:"facebook", texto:"Fotos de Paco Ditesa"}] }
+   galerias:[{url:"https://www.instagram.com/p/DfxM5lWjWJ8/", red:"instagram", texto:"Álbum del club"},{url:"https://www.facebook.com/share/p/1LXXHNXn6C/", red:"facebook", texto:"Fotos de Paco Ditesa"}] },
+  { dia:22, mes:11, tipo:"partido", hora:"16:00", rival:"CD Cervera", campo:"Campo Sergio Asenjo 2", local:true, nota:"Liga · Jornada 11", jornada:11, arbitro:"Iulian Luta",
+   resultado:"1–0", goles:"Dela (p.)" }
 ];
 // El Memorial Ana García Gil es el torneo propio del club: homenaje a una
 // compañera fundadora y colaboradora fallecida de cáncer muy joven.
@@ -2985,13 +2996,13 @@ function panelTemporada(i){
 }
 // ===== TEMPORADA EN CURSO 26/27 (se construye sola desde LIGA, RESULTADOS y CLASIFICACION) =====
 // STATS_ACTUAL: [nombre, partidos jugados, titularidades, goles (negativo = encajados del portero), amarillas, rojas]
-// Fuente: actas RFCyLF J1–J8 y J10 completas + goles y tarjetas de la J9 (Dela 80'; amarillas Sergio y Ricky). PJ y titularidades de la J9 pendientes del acta completa.
+// Fuente: actas RFCyLF J1–J8, J10 y J11 completas + goles y tarjetas de la J9 (Dela 80'; amarillas Sergio y Ricky). PJ y titularidades de la J9 pendientes del acta completa.
 const STATS_ACTUAL = [
-  ["Dela",7,7,6,0,0],["Erik Pedrejón",7,5,4,1,0],["Juan Pablo",8,6,4,2,0],["Ricky",7,2,3,1,0],["Ángel",8,5,3,1,0],
-  ["Adrián Pereira",2,2,2,0,0],["Iker Fernández",8,1,2,0,0],["Mario",8,8,1,1,0],["Marco García",7,4,1,2,0],
-  ["Víctor",6,6,0,0,0],["Sergio",8,8,0,1,0],["Volodymyr Sofiichuk",8,8,0,1,0],["Omar Machón",6,6,0,0,0],
-  ["Aitor Fernández",7,4,0,0,0],["Yimbo",7,6,1,4,1],["Piqué",3,2,0,0,0],["Alejandro Ñaño",2,0,0,0,0],
-  ["Daniel Santiso",1,0,0,0,0],["Raimundo Mitogo",2,0,0,0,0],["Nieto",6,6,-8,0,0],["Manuel Paredes",2,2,-2,0,0]
+  ["Dela",8,8,7,0,0],["Erik Pedrejón",8,6,4,1,0],["Juan Pablo",9,6,4,2,0],["Ricky",8,2,3,1,0],["Ángel",9,5,3,1,0],
+  ["Adrián Pereira",2,2,2,0,0],["Iker Fernández",9,2,2,1,0],["Mario",9,9,1,1,0],["Marco García",7,4,1,2,0],
+  ["Víctor",7,7,0,0,0],["Sergio",9,9,0,1,0],["Volodymyr Sofiichuk",9,9,0,1,0],["Omar Machón",7,7,0,0,0],
+  ["Aitor Fernández",8,5,0,0,0],["Yimbo",7,6,1,4,1],["Piqué",4,3,0,0,0],["Alejandro Ñaño",2,0,0,0,0],
+  ["Daniel Santiso",1,0,0,0,0],["Raimundo Mitogo",3,0,0,0,0],["Nieto",7,6,-8,0,0],["Manuel Paredes",3,3,-2,0,0]
 ];
 (function temporadaActual(){
   if(typeof LIGA==='undefined' || typeof CLASIFICACION==='undefined') return;
@@ -3174,7 +3185,7 @@ const vMarco = document.querySelector('.vid-marco');
 document.getElementById('vprev').addEventListener('click',()=>vMarco.scrollBy({left:-596,behavior:'smooth'}));
 document.getElementById('vnext').addEventListener('click',()=>vMarco.scrollBy({left:596,behavior:'smooth'}));
 // Escudo del rival en el último resultado
-document.getElementById('res-rival-escudo').innerHTML = escudoHTML('UP Barruelo','crest');
+document.getElementById('res-rival-escudo').innerHTML = escudoHTML('CD Cervera','crest');
 // ===== TIENDA =====
 // Enlace al perfil de PayPal del club (paypal.me/...). Pégalo aquí y aparecerá
 // el botón de pago junto a cada camiseta. Si se deja vacío, solo se muestra "Reservar".
